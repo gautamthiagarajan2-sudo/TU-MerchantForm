@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ThinkUni x Merchant Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#FF5722;--orange-hover:#E04A1C;
+  --orange-muted:rgba(255,87,34,0.10);--orange-border:rgba(255,87,34,0.4);
+  --dark:#1C1C1C;--dark-card:#1A1A1A;--dark-border:#2A2A2A;
+  --bg:#0D0D0D;--white:#FFFFFF;--muted:#888888;
+  --r-card:16px;--r-btn:14px;--r-input:12px;
+  --spring:cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--white);-webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ── SHELL ── */
+#app{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh;background:var(--bg)}
+#form-shell{position:relative;width:100%;max-width:440px;height:100vh;height:100dvh;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:480px){#form-shell{height:92vh;max-height:860px;border:2px solid var(--dark-border);border-radius:24px}}
+
+/* ── TOP BAR ── */
+#top-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0;z-index:10}
+.logo-wordmark{font-size:20px;font-weight:900;letter-spacing:-0.5px;line-height:1}
+.logo-wordmark .think{color:var(--white);font-style:normal}
+.logo-wordmark .uni{color:var(--orange);font-style:italic}
+#badge-gen-z{background:var(--orange);color:var(--white);font-size:10px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;border-radius:20px}
+
+/* ── PROGRESS ── */
+#progress-wrap{flex-shrink:0;padding:10px 20px 0}
+#progress-track{height:3px;background:var(--dark-border);border-radius:2px;overflow:hidden}
+#progress-fill{height:100%;background:var(--orange);border-radius:2px;width:0%;transition:width 600ms var(--ease-out)}
+
+/* ── SCREENS ── */
+#screens-container{flex:1;overflow:hidden;position:relative}
+.screen{display:none;flex-direction:column;height:100%;overflow-y:auto;overflow-x:hidden;padding:20px 20px 100px;-webkit-overflow-scrolling:touch}
+.screen.active{display:flex}
+.screen::-webkit-scrollbar{display:none}
+.screen{-ms-overflow-style:none;scrollbar-width:none}
+
+/* ── TRANSITIONS ── */
+@keyframes slideInRight{from{opacity:0;transform:translateX(48px) scale(0.97)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-48px) scale(0.97)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.anim-enter-right{animation:slideInRight 420ms var(--ease-out) both}
+.anim-enter-left{animation:slideInLeft 420ms var(--ease-out) both}
+
+/* ── STAGGER ── */
+.s-item{opacity:0;transform:translateY(18px);transition:opacity 380ms var(--ease-out),transform 380ms var(--spring)}
+.s-item.s-in{opacity:1;transform:translateY(0)}
+
+/* ── BOTTOM NAV ── */
+#bottom-nav{position:absolute;bottom:0;left:0;right:0;padding:12px 20px 20px;background:linear-gradient(to top,var(--bg) 68%,transparent);z-index:20;display:flex;flex-direction:column;gap:10px}
+#dot-indicators{display:flex;align-items:center;justify-content:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:3px;background:var(--dark-border);transition:all 350ms var(--spring)}
+.dot.active{width:18px;background:var(--orange)}
+#nav-actions{display:flex;gap:10px;align-items:center}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.screen-title{font-size:26px;font-weight:900;letter-spacing:-0.5px;line-height:1.2;margin-bottom:8px}
+.screen-title .hl{color:var(--orange)}
+.screen-body{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:20px}
+.sub-label{font-size:12px;font-weight:600;color:var(--white);margin-bottom:10px;margin-top:16px}
+.micro-copy{font-size:11px;color:var(--muted);text-align:center;line-height:1.5;margin-top:8px}
+.micro-copy strong{color:var(--orange)}
+
+/* ── BUTTONS ── */
+.btn-primary{width:100%;background:var(--orange);color:var(--white);border:none;border-radius:var(--r-btn);padding:16px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background 200ms,transform 120ms var(--spring);display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;-webkit-tap-highlight-color:transparent}
+.btn-primary:active{transform:scale(0.97);background:var(--orange-hover)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-back{background:none;border:none;color:var(--muted);font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;cursor:pointer;padding:10px 0;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.btn-back:active{color:var(--white)}
+
+/* ── HERO SVG ── */
+.hero-svg-wrap{margin:16px 0;border-radius:var(--r-card);overflow:hidden;background:var(--dark-card);border:1.5px solid var(--dark-border)}
+
+/* ── STAT GRID ── */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.stat-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px}
+.stat-icon{font-size:18px;color:var(--orange);margin-bottom:6px}
+.stat-number{font-size:22px;font-weight:900;color:var(--orange);line-height:1.1;margin-bottom:3px}
+.stat-label{font-size:11px;color:var(--muted);font-weight:400;line-height:1.4}
+
+/* ── CHIP GRID ── */
+.chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.chip-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 12px;cursor:pointer;transition:border-color 200ms,background 200ms,transform 200ms var(--spring);display:flex;flex-direction:column;gap:6px;min-height:84px;-webkit-tap-highlight-color:transparent;user-select:none}
+.chip-card:active{transform:scale(0.96)}
+.chip-card.selected{border-color:var(--orange);background:var(--orange-muted)}
+@keyframes chipPop{0%{transform:scale(1)}35%{transform:scale(0.95)}65%{transform:scale(1.04)}85%{transform:scale(0.99)}100%{transform:scale(1)}}
+.chip-card.selected{animation:chipPop 350ms var(--spring)}
+.chip-icon{font-size:22px;color:var(--orange);line-height:1}
+.chip-label{font-size:13px;font-weight:700;color:var(--white);line-height:1.2}
+.chip-sub{font-size:10px;color:var(--muted);font-weight:400;line-height:1.3}
+
+/* ── DATA REVEAL ── */
+#data-reveal{display:none;border:1.5px solid var(--orange-border);border-radius:var(--r-card);padding:16px;margin-bottom:16px;background:rgba(255,87,34,0.12)}
+@keyframes revealIn{from{opacity:0;transform:translateY(-10px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+#data-reveal.show{display:block;animation:revealIn 380ms var(--ease-out) both}
+.data-reveal-head{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.data-reveal-stat{font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px}
+.data-reveal-body{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── SCALE ── */
+.scale-row{display:flex;gap:10px;justify-content:center;margin:24px 0 10px}
+.scale-dot{width:48px;height:48px;border-radius:50%;background:var(--dark-card);border:1.5px solid var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;cursor:pointer;transition:all 220ms var(--spring);-webkit-tap-highlight-color:transparent}
+.scale-dot.selected{background:var(--orange);border-color:var(--orange);color:var(--white);transform:scale(1.12)}
+.scale-labels{display:flex;justify-content:space-between;margin-bottom:20px}
+.scale-label{font-size:10px;color:var(--muted);font-weight:400}
+
+/* ── INSIGHT CARD ── */
+.insight-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px;margin-top:16px;display:flex;gap:10px;align-items:flex-start}
+.insight-icon{font-size:16px;color:#FF4444;flex-shrink:0;margin-top:1px}
+.insight-text{font-size:12px;color:var(--muted);line-height:1.6}
+.insight-text strong{color:var(--white)}
+
+/* ── PILL GROUP ── */
+.pill-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.pill{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:40px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:all 200ms var(--spring);-webkit-tap-highlight-color:transparent;user-select:none;min-height:44px;display:flex;align-items:center}
+.pill.selected{border-color:var(--orange);background:var(--orange-muted);color:var(--white)}
+.pill:active{transform:scale(0.96)}
+
+/* ── ROW SELECT ── */
+.row-select-item{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 16px;cursor:pointer;transition:all 200ms var(--spring);margin-bottom:8px;display:flex;align-items:center;gap:12px;min-height:54px;-webkit-tap-highlight-color:transparent;user-select:none}
+.row-select-item.selected{border-color:var(--orange);background:var(--orange-muted)}
+.row-select-item:active{transform:scale(0.98)}
+.row-check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--dark-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 220ms var(--spring)}
+.row-select-item.selected .row-check{background:var(--orange);border-color:var(--orange)}
+.row-check-icon{display:none;font-size:13px;font-weight:700;color:var(--white)}
+.row-select-item.selected .row-check-icon{display:block}
+.row-text{font-size:13px;font-weight:500;flex:1}
+
+/* ── VALUE BLOCK ── */
+.value-block{background:var(--orange);border-radius:var(--r-card);padding:20px;margin-bottom:20px;text-align:center}
+.value-block-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:.8;margin-bottom:4px}
+.value-block-number{font-size:60px;font-weight:900;line-height:1;margin-bottom:4px}
+.value-block-sub{font-size:12px;font-weight:500;opacity:.9;line-height:1.5}
+
+/* ── ANSWER CARDS ── */
+.answer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.answer-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:16px 10px;cursor:pointer;transition:all 200ms var(--spring);text-align:center;-webkit-tap-highlight-color:transparent;user-select:none;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.answer-card.selected{border-color:var(--orange);background:var(--orange-muted)}
+.answer-card:active{transform:scale(0.95)}
+.answer-icon{font-size:26px;color:var(--orange)}
+.answer-text{font-size:11px;font-weight:600;line-height:1.3;color:var(--white)}
+
+/* ── OFFER MODEL CARDS ── */
+.offer-model-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:16px;cursor:pointer;transition:all 200ms var(--spring);margin-bottom:10px;-webkit-tap-highlight-color:transparent;user-select:none}
+.offer-model-card.selected{border-color:var(--orange);background:var(--orange-muted)}
+.offer-model-card:active{transform:scale(0.98)}
+.offer-model-head{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.offer-model-letter{width:26px;height:26px;border-radius:8px;background:var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:background 220ms;flex-shrink:0}
+.offer-model-card.selected .offer-model-letter{background:var(--orange)}
+.offer-model-body{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:8px;padding-left:34px}
+.offer-model-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;color:var(--muted);border:1px solid var(--dark-border);border-radius:20px;padding:3px 10px;margin-left:34px}
+.badge-smart{background:var(--orange);color:var(--white);font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px}
+
+/* ── SPEED BUTTONS ── */
+.speed-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.speed-btn{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 12px;cursor:pointer;transition:all 200ms var(--spring);text-align:center;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;-webkit-tap-highlight-color:transparent;user-select:none;min-height:54px;display:flex;align-items:center;justify-content:center;color:var(--white)}
+.speed-btn.selected{border-color:var(--orange);background:var(--orange-muted);color:var(--orange)}
+.speed-btn:active{transform:scale(0.96)}
+
+/* ── INPUTS ── */
+.form-group{margin-bottom:14px}
+.form-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
+.form-input{width:100%;background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-input);padding:14px;font-family:'Poppins',sans-serif;font-size:14px;color:var(--white);outline:none;transition:border-color 200ms;min-height:50px}
+.form-input::placeholder{color:#333}
+.form-input:focus{border-color:var(--orange)}
+textarea.form-input{resize:none;min-height:130px;line-height:1.6}
+.input-prefix-wrap{position:relative}
+.input-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--orange);pointer-events:none}
+.input-prefix-wrap .form-input{padding-left:46px}
+.city-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.city-tag{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--muted);cursor:pointer;transition:all 200ms;font-family:'Poppins',sans-serif}
+.city-tag:active,.city-tag.active{border-color:var(--orange);color:var(--orange);background:var(--orange-muted)}
+.privacy-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.5;margin-top:12px}
+.field-error{font-size:11px;color:#FF4444;margin-top:4px;display:none}
+.field-error.show{display:block}
+.form-input.error{border-color:#FF4444}
+
+/* ── CONTACT METHOD ── */
+.contact-method-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.contact-method-btn{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:12px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;text-align:center;transition:all 200ms var(--spring);min-height:48px;display:flex;align-items:center;justify-content:center;gap:6px;-webkit-tap-highlight-color:transparent;color:var(--white)}
+.contact-method-btn .ti{font-size:16px;color:var(--orange)}
+.contact-method-btn.selected{border-color:var(--orange);background:var(--orange-muted)}
+
+/* ── CALLOUT ── */
+.callout{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px;margin-bottom:16px;font-size:12px;color:var(--muted);line-height:1.65}
+.callout strong{color:var(--white);font-weight:600}
+.callout .hl{color:var(--orange)}
+
+/* ── AFFIRMATION OVERLAY ── */
+#aff-overlay{position:absolute;inset:0;background:rgba(13,13,13,0.97);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:50;opacity:0;pointer-events:none;transition:opacity 260ms ease;border-radius:inherit;padding:32px}
+#aff-overlay.show{opacity:1;pointer-events:auto}
+.aff-icon-wrap{width:72px;height:72px;border-radius:50%;background:var(--orange-muted);border:1.5px solid var(--orange-border);display:flex;align-items:center;justify-content:center}
+.aff-icon-wrap .ti{font-size:32px;color:var(--orange)}
+@keyframes iconPop{0%{transform:scale(0.4);opacity:0}60%{transform:scale(1.12)}80%{transform:scale(0.95)}100%{transform:scale(1);opacity:1}}
+#aff-overlay.show .aff-icon-wrap{animation:iconPop 420ms var(--spring) both}
+.aff-text{font-size:17px;font-weight:700;color:var(--white);text-align:center;line-height:1.45;max-width:280px}
+@keyframes textUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+#aff-overlay.show .aff-text{animation:textUp 380ms ease 120ms both}
+.aff-tap{font-size:11px;color:var(--muted);margin-top:6px}
+@keyframes tapFade{from{opacity:0}to{opacity:1}}
+#aff-overlay.show .aff-tap{animation:tapFade 400ms ease 600ms both}
+
+/* ── COMPLETION ── */
+#screen-14{background:var(--orange) !important}
+#screen-14 .screen-title{color:var(--white)}
+#screen-14 .screen-body{color:rgba(255,255,255,.85)}
+.completion-icon-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+@keyframes bounceIn{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
+.completion-icon-wrap.animate .celebration-img{animation:bounceIn 600ms var(--spring) both}
+.completion-text-block{animation:fadeSlideUp 500ms ease 200ms both}
+.referral-box{background:rgba(0,0,0,.22);border:1.5px solid rgba(255,255,255,.2);border-radius:var(--r-card);padding:16px;margin-top:20px}
+.referral-head{font-size:13px;font-weight:700;color:var(--white);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.referral-head .ti{font-size:16px}
+.referral-text{font-size:12px;color:rgba(255,255,255,.8);font-style:italic;line-height:1.6;margin-bottom:12px;background:rgba(0,0,0,.15);padding:10px;border-radius:8px}
+.btn-copy{width:100%;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.35);color:var(--white);border-radius:10px;padding:12px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background 200ms;min-height:46px}
+.btn-copy:active{background:rgba(255,255,255,.3)}
+.completion-footer{text-align:center;margin-top:20px;font-size:12px;color:rgba(255,255,255,.6);font-weight:500}
+.section-divider{height:1px;background:var(--dark-border);margin:20px 0}
+
+/* ── SHAKE ── */
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+/* ── HERO IMAGE ── */
+.hero-img-wrap{margin:16px 0;border-radius:var(--r-card);overflow:hidden}
+.hero-img{width:100%;display:block;border-radius:var(--r-card)}
+
+/* ── TRUST BANNER ── */
+.trust-banner{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:12px 14px;margin:12px 0 16px;display:flex;align-items:center;gap:10px}
+.trust-badge{width:32px;height:32px;border-radius:8px;background:var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trust-badge .ti{font-size:16px;color:#fff}
+.trust-content{font-size:12px;color:var(--muted);line-height:1.5;flex:1}
+.trust-content strong{color:var(--white)}
+
+/* ── QUOTE BLOCK ── */
+.quote-block{border-left:3px solid var(--orange);padding:10px 14px;margin:8px 0 16px;background:var(--orange-muted);border-radius:0 var(--r-card) var(--r-card) 0}
+.quote-text{font-size:13px;color:var(--white);line-height:1.6;font-style:italic}
+.quote-attr{font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:0.3px}
+
+/* ── STAT ROW ── */
+.stat-row{display:flex;gap:8px;margin:12px 0 16px}
+.stat-row-item{flex:1;background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:12px 10px;text-align:center}
+.stat-row-num{font-size:20px;font-weight:900;color:var(--orange);line-height:1.1}
+.stat-row-label{font-size:10px;color:var(--muted);line-height:1.4;margin-top:2px}
+
+/* ── STORE IMAGE ── */
+.store-img-wrap{background:#fff;border-radius:var(--r-card);overflow:hidden;margin:0 0 16px;padding:16px;display:flex;align-items:center;justify-content:center}
+.store-img{width:100%;max-width:260px;display:block;margin:0 auto}
+
+/* ── CELEBRATION IMAGE ── */
+.celebration-img{width:160px;height:160px;object-fit:cover;border-radius:50%;display:block;margin:0 auto}
+
+/* ── NEXT STEPS TIMELINE ── */
+.next-steps{margin:16px 0}
+.next-step-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0}
+.next-step-row:not(:last-child){border-bottom:1px solid var(--dark-border)}
+.step-circle{width:26px;height:26px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+.step-desc{font-size:12px;color:var(--muted);line-height:1.55}
+.step-desc strong{color:var(--white)}
+
+/* ── CATEGORY ICON SVG ── */
+.chip-icon svg{width:22px;height:22px;flex-shrink:0}
+
+/* ── ORANGE TAG ── */
+.orange-tag{display:inline-flex;align-items:center;gap:5px;background:var(--orange);color:#fff;font-size:9px;font-weight:700;letter-spacing:.5px;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+
+/* ── PROOF ROW ── */
+.proof-row{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);margin-bottom:10px}
+.proof-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.proof-text{font-size:12px;color:var(--muted);line-height:1.4}
+.proof-text strong{color:var(--white)}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="form-shell">
+
+  <div id="top-bar">
+    <div class="logo-wordmark"><span class="think">think</span><span class="uni">uni</span></div>
+    <div id="badge-gen-z" style="display:flex;align-items:center;gap:5px">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="10"/></svg>
+      Merchant Research
+    </div>
+  </div>
+  <div id="progress-wrap">
+    <div id="progress-track"><div id="progress-fill"></div></div>
+  </div>
+
+  <div id="screens-container">
+
+    <!-- ── S1: HERO ── -->
+    <div class="screen active" id="screen-1">
+      <div class="eyebrow s-item" id="campus-eyebrow">ThinkUni x Your Campus</div>
+      <h1 class="screen-title s-item">We built this for <span class="hl">Gen Z</span>. For you.</h1>
+      <p class="screen-body s-item">Gen Z decides where everyone eats, shops, and spends. Right now, very little of that 22 billion rupees in student spend reaches local businesses near campus. We are changing that. We want to understand your business first.</p>
+
+      <div class="hero-img-wrap s-item">
+        <img src="img-network.png" class="hero-img" alt="ThinkUni campus network">
+        <div style="background:#0D0D0D;text-align:center;padding:8px 12px;border-top:1px solid #1C1C1C">
+          <span style="font-size:9px;font-weight:600;letter-spacing:1.5px;color:rgba(255,87,34,0.6);text-transform:uppercase">50,000+ Verified Students Across 18+ Campuses</span>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card s-item">
+          <div class="stat-icon"><i class="ti ti-currency-rupee"></i></div>
+          <div class="stat-number">22B</div>
+          <div class="stat-label">Annual student discretionary spend</div>
+        </div>
+        <div class="stat-card s-item">
+          <div class="stat-icon"><i class="ti ti-users"></i></div>
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Verified students, 18+ campuses</div>
+        </div>
+        <div class="stat-card s-item">
+          <div class="stat-icon"><i class="ti ti-share"></i></div>
+          <div class="stat-number">99%</div>
+          <div class="stat-label">Share a good offer with friends instantly</div>
+        </div>
+        <div class="stat-card s-item">
+          <div class="stat-icon"><i class="ti ti-ban"></i></div>
+          <div class="stat-number">0%</div>
+          <div class="stat-label">Commission. Ever.</div>
+        </div>
+      </div>
+      <p class="micro-copy s-item">3-minute merchant research &middot; No obligation &middot; No cold call unless you ask.</p>
+    </div>
+
+    <!-- ── S2: CATEGORY ── -->
+    <div class="screen" id="screen-2">
+      <div class="eyebrow s-item">Step 1 of 7</div>
+      <h1 class="screen-title s-item">What's your business?</h1>
+      <p class="screen-body s-item">Pick your category. We'll show you exactly what Gen Z spends in your space.</p>
+      <div class="chip-grid" id="category-grid">
+        <div class="chip-card s-item" data-cat="food">
+          <div class="chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l1-8h16l1 8"/><path d="M3 11h18v2a6 6 0 01-6 6H9a6 6 0 01-6-6v-2z"/><path d="M12 3v8"/></svg>
+          </div>
+          <div class="chip-label">Food &amp; Beverage</div>
+          <div class="chip-sub">Cafes, restaurants, cloud kitchens</div>
+        </div>
+        <div class="chip-card s-item" data-cat="fashion">
+          <div class="chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2l2 4H4L2 8l4 2v12h12V10l4-2-2-2h-4l2-4"/><path d="M9 2l3 4 3-4"/></svg>
+          </div>
+          <div class="chip-label">Fashion &amp; Apparel</div>
+          <div class="chip-sub">Clothing, accessories, streetwear</div>
+        </div>
+        <div class="chip-card s-item" data-cat="beauty">
+          <div class="chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <div class="chip-label">Beauty &amp; Wellness</div>
+          <div class="chip-sub">Salon, skincare, wellness</div>
+        </div>
+        <div class="chip-card s-item" data-cat="edu">
+          <div class="chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9L12 4 2 9l10 5 10-5z"/><path d="M6 11.5v5c0 1.657 2.686 3 6 3s6-1.343 6-3v-5"/><path d="M22 9v5"/></svg>
+          </div>
+          <div class="chip-label">Education</div>
+          <div class="chip-sub">Courses, coaching, skill dev</div>
+        </div>
+        <div class="chip-card s-item" data-cat="events">
+          <div class="chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <div class="chip-label">Events &amp; Experiences</div>
+          <div class="chip-sub">Fests, shows, hangouts</div>
+        </div>
+        <div class="chip-card s-item" data-cat="other">
+          <div class="chip-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="chip-label">Other</div>
+          <div class="chip-sub">Something else entirely</div>
+        </div>
+      </div>
+      <div id="data-reveal">
+        <div class="data-reveal-head" id="reveal-head"></div>
+        <div class="data-reveal-stat" id="reveal-stat"></div>
+        <div class="data-reveal-body" id="reveal-body"></div>
+      </div>
+    </div>
+
+    <!-- ── S3: SCALE ── -->
+    <div class="screen" id="screen-3">
+      <div class="eyebrow s-item">Step 2 of 7</div>
+      <h1 class="screen-title s-item">How critical is <span class="hl">Gen Z</span> to you?</h1>
+      <p class="screen-body s-item">They don't just buy. One good experience becomes an endorsement to their entire friend group.</p>
+      <div class="stat-row s-item">
+        <div class="stat-row-item">
+          <div class="stat-row-num">4.7x</div>
+          <div class="stat-row-label">More likely to refer after a great deal</div>
+        </div>
+        <div class="stat-row-item">
+          <div class="stat-row-num">99%</div>
+          <div class="stat-row-label">Share a good offer with a friend instantly</div>
+        </div>
+        <div class="stat-row-item">
+          <div class="stat-row-num">8x</div>
+          <div class="stat-row-label">Monthly dining visits for an average student</div>
+        </div>
+      </div>
+      <div class="scale-row s-item" id="scale-row">
+        <div class="scale-dot" data-val="1">1</div>
+        <div class="scale-dot" data-val="2">2</div>
+        <div class="scale-dot" data-val="3">3</div>
+        <div class="scale-dot" data-val="4">4</div>
+        <div class="scale-dot" data-val="5">5</div>
+      </div>
+      <div class="scale-labels s-item">
+        <span class="scale-label">Not a priority</span>
+        <span class="scale-label">Critical to growth</span>
+      </div>
+      <div class="trust-banner s-item">
+        <div class="trust-badge"><i class="ti ti-chart-line"></i></div>
+        <div class="trust-content"><strong>88% of students</strong> near campus can't find good deals nearby. That's your untapped pipeline. <em style="color:var(--orange)">ThinkUni research 2025</em></div>
+      </div>
+    </div>
+
+    <!-- ── S4: CUSTOMER PROFILE ── -->
+    <div class="screen" id="screen-4">
+      <div class="eyebrow s-item">Step 3 of 7</div>
+      <h1 class="screen-title s-item">Who buys from you right now?</h1>
+      <div class="sub-label s-item">Select all that apply</div>
+      <div class="pill-group s-item" id="customer-types">
+        <div class="pill" data-val="students">College students</div>
+        <div class="pill" data-val="genz">Gen Z (18-25)</div>
+        <div class="pill" data-val="professionals">Working professionals</div>
+        <div class="pill" data-val="families">Families</div>
+        <div class="pill" data-val="mixed">Mixed</div>
+        <div class="pill" data-val="unsure">Not sure</div>
+      </div>
+      <div class="sub-label s-item">Are you actively reaching Gen Z students today?</div>
+      <div id="genz-reach">
+        <div class="row-select-item s-item" data-val="yes_consistently"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Yes, consistently</div></div>
+        <div class="row-select-item s-item" data-val="sometimes"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Sometimes</div></div>
+        <div class="row-select-item s-item" data-val="tried"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Tried, didn't work</div></div>
+        <div class="row-select-item s-item" data-val="not_yet"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Not yet</div></div>
+        <div class="row-select-item s-item" data-val="no"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">No</div></div>
+      </div>
+      <div class="quote-block s-item">
+        <div class="quote-text">"85% of businesses near campuses don't have a system that converts Gen Z. It's not a skill gap. There's no verified channel. That's the gap ThinkUni fills."</div>
+        <div class="quote-attr">ThinkUni Merchant Research 2025</div>
+      </div>
+    </div>
+
+    <!-- ── S5: PAIN POINTS ── -->
+    <div class="screen" id="screen-5">
+      <div class="eyebrow s-item">Step 4 of 7</div>
+      <h1 class="screen-title s-item">What's holding you back?</h1>
+      <p class="screen-body s-item">Select all that apply. Honest answers shape your proposal.</p>
+      <div class="trust-banner s-item">
+        <div class="trust-badge" style="background:#1C1C1C;border:1.5px solid var(--dark-border)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="trust-content"><strong>Zomato / Swiggy</strong> take 20-30% per order. ThinkUni takes <strong style="color:var(--orange)">0%</strong> commission. Ever.</div>
+      </div>
+      <div id="pain-points">
+        <div class="row-select-item s-item" data-val="commissions"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">High commissions on Zomato / Swiggy / Magicpin (20-30%)</div></div>
+        <div class="row-select-item s-item" data-val="ads"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Paid ads are too expensive</div></div>
+        <div class="row-select-item s-item" data-val="understanding"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Hard to understand Gen Z behaviour</div></div>
+        <div class="row-select-item s-item" data-val="no_channel"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">No direct channel to reach students</div></div>
+        <div class="row-select-item s-item" data-val="conversion"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Offers don't convert well</div></div>
+        <div class="row-select-item s-item" data-val="no_data"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">No customer data after the sale</div></div>
+        <div class="row-select-item s-item" data-val="competitors"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Competitors attract them better</div></div>
+        <div class="row-select-item s-item" data-val="other_pain"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Other</div></div>
+      </div>
+    </div>
+
+    <!-- ── S6: CORE CONVERSION ── -->
+    <div class="screen" id="screen-6">
+      <div class="eyebrow s-item">Step 5 of 7 &middot; The key question</div>
+      <div class="store-img-wrap s-item">
+        <img src="img-store-crowd.png" class="store-img" alt="50-100 Gen Z customers coming to your store">
+      </div>
+      <div style="background:var(--orange);border-radius:var(--r-card);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px" class="s-item">
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.85;margin-bottom:2px">ThinkUni delivers</div>
+          <div style="font-size:40px;font-weight:900;line-height:1;margin-bottom:2px">50-100</div>
+          <div style="font-size:12px;font-weight:500;opacity:.9;line-height:1.4">new Gen Z customers/month<br>zero commission, AI-matched</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0">
+          <div style="font-size:28px;font-weight:900;line-height:1">0%</div>
+          <div style="font-size:10px;font-weight:600;opacity:.85;letter-spacing:.5px">COMMISSION</div>
+        </div>
+      </div>
+      <h1 class="screen-title s-item" style="font-size:18px;">If ThinkUni brought your business 50-100 Gen Z students every month as an ongoing growth channel, would you want in?</h1>
+      <div class="answer-grid s-item" id="core-answers" style="margin-top:12px">
+        <div class="answer-card" data-val="yes">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="answer-text">Yes, let's go</div>
+        </div>
+        <div class="answer-card" data-val="maybe">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div class="answer-text">Tell me more</div>
+        </div>
+        <div class="answer-card" data-val="not_now">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="answer-text">Not right now</div>
+        </div>
+      </div>
+      <p class="micro-copy s-item"><strong>First partner cohort:</strong> 3 months at zero platform fee. Priority placement. Capped slots.</p>
+    </div>
+
+    <!-- ── S7: VALUE DRIVERS ── -->
+    <div class="screen" id="screen-7">
+      <div class="eyebrow s-item">Step 6 of 7</div>
+      <h1 class="screen-title s-item">What would make ThinkUni <span class="hl">most valuable</span>?</h1>
+      <div class="quote-block s-item">
+        <div class="quote-text">"I don't want to pay 25% every order forever. I want students who come back because they actually like my place."</div>
+        <div class="quote-attr">Campus business owner, Chennai 2025</div>
+      </div>
+      <div class="chip-grid s-item" id="value-drivers" style="margin-top:8px">
+        <div class="chip-card" data-val="zero_commission" style="min-height:64px"><div class="chip-label">Zero commission</div></div>
+        <div class="chip-card" data-val="more_customers" style="min-height:64px"><div class="chip-label">More customers monthly</div></div>
+        <div class="chip-card" data-val="repeat" style="min-height:64px"><div class="chip-label">Repeat purchases</div></div>
+        <div class="chip-card" data-val="word_of_mouth" style="min-height:64px"><div class="chip-label">Word-of-mouth sharing</div></div>
+        <div class="chip-card" data-val="visibility" style="min-height:64px"><div class="chip-label">Gen Z visibility</div></div>
+        <div class="chip-card" data-val="analytics" style="min-height:64px"><div class="chip-label">Customer analytics</div></div>
+      </div>
+    </div>
+
+    <!-- ── S8: OFFER STRUCTURES ── -->
+    <div class="screen" id="screen-8">
+      <div class="eyebrow s-item">Step 6 of 7 (continued)</div>
+      <h1 class="screen-title s-item">Which offer types interest you?</h1>
+      <div style="background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 16px;margin-bottom:14px" class="s-item">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px">How ThinkUni Routing Works</div>
+        <div class="proof-row" style="margin-bottom:8px;background:transparent;border:none;padding:4px 0">
+          <div class="proof-dot"></div>
+          <div class="proof-text">A <strong>30% flash deal</strong> doesn't go to all 50,000 students</div>
+        </div>
+        <div class="proof-row" style="margin-bottom:8px;background:transparent;border:none;padding:4px 0">
+          <div class="proof-dot"></div>
+          <div class="proof-text">It goes to the <strong style="color:var(--orange)">20 most likely to visit you first</strong></div>
+        </div>
+        <div class="proof-row" style="background:transparent;border:none;padding:4px 0">
+          <div class="proof-dot"></div>
+          <div class="proof-text">You set the cap. <strong>99% share it onward</strong> to friends</div>
+        </div>
+      </div>
+      <div id="offer-structures">
+        <div class="row-select-item s-item" data-val="10pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">10% baseline</div></div>
+        <div class="row-select-item s-item" data-val="15pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">15% repeat-customer</div></div>
+        <div class="row-select-item s-item" data-val="20pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">20% high-intent</div></div>
+        <div class="row-select-item s-item" data-val="30pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">30% flash deal</div></div>
+        <div class="row-select-item s-item" data-val="free_addon"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Free add-on</div></div>
+        <div class="row-select-item s-item" data-val="time_based"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Time-based / happy-hour</div></div>
+        <div class="row-select-item s-item" data-val="custom"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Custom structure</div></div>
+      </div>
+    </div>
+
+    <!-- ── S9: OFFER MODEL ── -->
+    <div class="screen" id="screen-9">
+      <div class="eyebrow s-item">Step 6 of 7 (continued)</div>
+      <h1 class="screen-title s-item">How do you want to run your offers?</h1>
+      <p class="screen-body s-item">Two models. Most partners start with one, then blend both as they grow.</p>
+      <div id="offer-models">
+        <div class="offer-model-card s-item" data-val="A">
+          <div class="offer-model-head"><div class="offer-model-letter">A</div>Offer Volume Model</div>
+          <div class="offer-model-body">Run ~50 offers/month across 15%, 20%, 30% tiers. ThinkUni routes each to the right students.</div>
+          <div class="offer-model-tag">Best for: max reach and new customers</div>
+        </div>
+        <div class="offer-model-card s-item" data-val="B">
+          <div class="offer-model-head"><div class="offer-model-letter">B</div>Fixed Budget Model<span class="badge-smart">Smart pick</span></div>
+          <div class="offer-model-body">Set a monthly discount budget (e.g. Rs 10,000). We target it at your highest-value students. No blanket discounts, no margin leak.</div>
+          <div class="offer-model-tag">Best for: predictable spend and repeat buyers</div>
+        </div>
+        <div class="offer-model-card s-item" data-val="C">
+          <div class="offer-model-head"><div class="offer-model-letter">C</div>Both / Not sure yet</div>
+          <div class="offer-model-body">Show me which performs better in the pilot.</div>
+          <div class="offer-model-tag">Best for: data-first partners</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S10: CAPACITY ── -->
+    <div class="screen" id="screen-10">
+      <div class="eyebrow s-item">Almost there</div>
+      <h1 class="screen-title s-item">How fast can you move?</h1>
+      <div class="sub-label s-item">Offers per month you can run?</div>
+      <div class="speed-grid s-item" id="offer-capacity">
+        <div class="speed-btn" data-val="1_5">1-5</div>
+        <div class="speed-btn" data-val="6_10">6-10</div>
+        <div class="speed-btn" data-val="11_20">11-20</div>
+        <div class="speed-btn" data-val="20plus">20+</div>
+        <div class="speed-btn" style="grid-column:span 2" data-val="performance_based">Depends on performance</div>
+      </div>
+      <div class="sub-label s-item">If selected, how soon could you go live?</div>
+      <div class="speed-grid s-item" id="launch-speed">
+        <div class="speed-btn" data-val="this_week">This week</div>
+        <div class="speed-btn" data-val="two_weeks">Within 2 weeks</div>
+        <div class="speed-btn" data-val="one_month">Within a month</div>
+        <div class="speed-btn" data-val="need_approval">Need approval</div>
+      </div>
+      <div class="trust-banner s-item">
+        <div class="trust-badge"><i class="ti ti-rocket"></i></div>
+        <div class="trust-content"><strong>First-mover advantage:</strong> Founding partner slots are capped. The sooner you're in, the better your campus placement priority.</div>
+      </div>
+    </div>
+
+    <!-- ── S11: BUSINESS BASICS ── -->
+    <div class="screen" id="screen-11">
+      <div class="eyebrow s-item">Step 7 of 7</div>
+      <h1 class="screen-title s-item">Tell us about your business.</h1>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px" class="s-item">
+        <div style="flex:1;height:4px;background:var(--orange);border-radius:2px"></div>
+        <span style="font-size:10px;font-weight:600;color:var(--orange);white-space:nowrap">90% done</span>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Business Name *</label>
+        <input type="text" class="form-input" id="business-name" placeholder="e.g. Brewed Awakenings Cafe">
+        <div class="field-error" id="err-business">Please enter your business name</div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">City *</label>
+        <input type="text" class="form-input" id="city" placeholder="e.g. Chennai">
+        <div class="city-suggestions">
+          <span class="city-tag" data-city="Chennai">Chennai</span>
+          <span class="city-tag" data-city="Coimbatore">Coimbatore</span>
+          <span class="city-tag" data-city="Madurai">Madurai</span>
+          <span class="city-tag" data-city="Trichy">Trichy</span>
+          <span class="city-tag" data-city="Salem">Salem</span>
+          <span class="city-tag" data-city="Vellore">Vellore</span>
+        </div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Who makes partnership decisions?</label>
+        <div class="pill-group" id="decision-maker" style="margin-top:8px;margin-bottom:0">
+          <div class="pill" data-val="founder">Founder</div>
+          <div class="pill" data-val="co_founder">Co-founder</div>
+          <div class="pill" data-val="marketing">Marketing</div>
+          <div class="pill" data-val="operations">Operations</div>
+          <div class="pill" data-val="manager">Manager</div>
+          <div class="pill" data-val="other_role">Other</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── S12: CONTACT ── -->
+    <div class="screen" id="screen-12">
+      <h1 class="screen-title s-item">Where do we send your proposal?</h1>
+      <div class="next-steps s-item">
+        <div class="next-step-row">
+          <div class="step-circle">1</div>
+          <div class="step-desc"><strong>You submit</strong> this form. Takes 20 seconds.</div>
+        </div>
+        <div class="next-step-row">
+          <div class="step-circle">2</div>
+          <div class="step-desc"><strong>Within 48 hours</strong> we send a custom proposal with estimated Gen Z demand near you.</div>
+        </div>
+        <div class="next-step-row">
+          <div class="step-circle">3</div>
+          <div class="step-desc"><strong>You decide</strong> if the partnership fits. Zero pressure, zero obligation.</div>
+        </div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Your Name *</label>
+        <input type="text" class="form-input" id="contact-name" placeholder="Your full name">
+        <div class="field-error" id="err-name">Please enter your name</div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">WhatsApp Number *</label>
+        <div class="input-prefix-wrap"><span class="input-prefix">+91</span><input type="tel" class="form-input" id="whatsapp" placeholder="9XXXXXXXXX" maxlength="10"></div>
+        <div class="field-error" id="err-whatsapp">Please enter a valid 10-digit Indian mobile number</div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Instagram Handle <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <div class="input-prefix-wrap"><span class="input-prefix">@</span><input type="text" class="form-input" id="instagram" placeholder="yourbrand"></div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Website / Google Maps <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input type="url" class="form-input" id="website" placeholder="https://...">
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">Preferred Contact</label>
+        <div class="contact-method-grid" id="contact-method">
+          <div class="contact-method-btn" data-val="whatsapp_contact"><i class="ti ti-brand-whatsapp"></i>WhatsApp</div>
+          <div class="contact-method-btn" data-val="call"><i class="ti ti-phone"></i>Call</div>
+          <div class="contact-method-btn" data-val="email_contact"><i class="ti ti-mail"></i>Email</div>
+          <div class="contact-method-btn" data-val="instagram_dm"><i class="ti ti-brand-instagram"></i>Instagram DM</div>
+        </div>
+      </div>
+      <p class="privacy-note s-item">Your info is only used to send your ThinkUni proposal. Never shared. Unsubscribe anytime.</p>
+    </div>
+
+    <!-- ── S13: OPEN QUESTION ── -->
+    <div class="screen" id="screen-13">
+      <div class="eyebrow s-item">Final question</div>
+      <h1 class="screen-title s-item">One last thing.</h1>
+      <div class="trust-banner s-item" style="margin-bottom:12px">
+        <div class="trust-badge" style="background:transparent;border:1.5px solid var(--orange-border)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="trust-content">Your answer goes directly to the ThinkUni product team. This genuinely shapes how we build.</div>
+      </div>
+      <div class="form-group s-item">
+        <label class="form-label">What's one thing you wish platforms understood better about Gen Z customers?</label>
+        <textarea class="form-input" id="open-question" rows="5" placeholder="Be honest. No wrong answers here." style="margin-top:8px"></textarea>
+      </div>
+      <p class="micro-copy s-item" style="margin-top:8px;margin-bottom:20px">The kind of answer that gets your proposal <strong>prioritised</strong>.</p>
+    </div>
+
+    <!-- ── S14: COMPLETION ── -->
+    <div class="screen" id="screen-14">
+      <div class="completion-icon-wrap s-item" id="completion-icon-wrap">
+        <img src="img-celebration.png" class="celebration-img" alt="You're in">
+      </div>
+      <div class="completion-text-block">
+        <h1 class="screen-title s-item" style="font-size:24px">You could be one of ThinkUni's founding partners.</h1>
+        <p class="screen-body s-item" id="completion-body" style="margin-top:10px">If your business fits our pilot model, your customised partnership proposal lands within 48 hours. We will send estimated Gen Z demand near you, recommended offer structures, and a monthly activation plan. The first cohort is capped and gets 3 months at zero platform fee.</p>
+        <div class="referral-box s-item">
+          <div class="referral-head">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Know another business near campus?
+          </div>
+          <div class="referral-text" id="referral-text">"Just filled a 3-min form from ThinkUni. Students from Your Campus building a Gen Z marketplace. Zero commission, 50-100 student customers a month. Worth a look: thinkuni.in/merchant"</div>
+          <button class="btn-copy" id="copy-btn" onclick="copyReferral()">Copy and Share</button>
+        </div>
+        <div class="completion-footer"><a href="https://www.thinkuni.in" style="color:rgba(255,255,255,.7);text-decoration:none;font-weight:500">www.thinkuni.in</a></div>
+      </div>
+    </div>
+
+  </div><!-- /screens-container -->
+
+  <!-- AFFIRMATION OVERLAY -->
+  <div id="aff-overlay">
+    <div class="aff-icon-wrap"><i class="ti ti-check" id="aff-icon"></i></div>
+    <div class="aff-text" id="aff-text">Great answer.</div>
+    <div class="aff-tap">tap to continue</div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div id="bottom-nav">
+    <div id="dot-indicators"></div>
+    <div id="nav-actions">
+      <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none">Back</button>
+      <button class="btn-primary" id="btn-next" onclick="goNext()">Start</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ═══ CONFIG ═══
+const CONFIG = {
+  CAMPUS_NAME: 'Your Campus',
+  LAUNCH_MONTH: 'August 2025',
+  FORM_LINK: 'https://thinkuni.in/merchant',
+  WEBHOOK_URL: '',
+  AB_VARIANT: Math.random() < 0.33 ? 'A' : Math.random() < 0.5 ? 'B' : 'C',
+};
+
+// ═══ STATE ═══
+let currentScreen = 1;
+const TOTAL = 14;
+const formData = {
+  category:null, gen_z_importance:0, customer_types:[], genz_reach:null,
+  pain_points:[], core_answer:null, value_drivers:[], offer_structures:[],
+  offer_model:null, offer_capacity:null, launch_speed:null, decision_maker:null,
+  business_name:'', city:'', contact_name:'', whatsapp:'', email:'',
+  instagram:'', website:'', contact_method:null, open_question:'',
+  lead_score:0, lead_tier:'',
+};
+
+// ═══ CATEGORY DATA ═══
+const categoryData = {
+  food:{ head:'Food and Beverage insight', stat:'48% of eating-out', body:'Gen Z drives Rs 30-35B/yr in the food market. They eat out 8x a month. And 99% share a good offer before they have finished the meal. (BCG 2024, SheerID 2024)' },
+  fashion:{ head:'Fashion insight', stat:'47% of fashion spend', body:'Gen Z drives Rs 45-50B/yr. They discover brands through peers, not ads. 90% are more likely to buy from a brand that gives them an exclusive offer. (BCG 2024, SheerID 2024)' },
+  beauty:{ head:'Beauty insight', stat:'44% of beauty market', body:'Gen Z drives Rs 7-9B/yr. Discovery is creator-led and peer-first. 68% of buying decisions start with a social signal, not a search. (BCG 2024, Nielsen IQ)' },
+  edu:{ head:'Education insight', stat:'100M Gen Z students', body:'99% of India\'s college students are Gen Z, and the number nearly doubles by 2035. A student who trusts your brand at 19 stays a customer for 30+ years. (SheerID 2024)' },
+  events:{ head:'Events insight', stat:'68% FOMO-driven purchases', body:'Gen Z purchases are triggered by FOMO and peer visibility, not price. 99% share exclusive offers with eligible friends. Events are how Gen Z builds identity. (Nielsen IQ, SheerID 2024)' },
+  other:{ head:'Market insight', stat:'Rs 930 billion', body:'India\'s 18-25 Gen Z cohort is ~100M people with Rs 3,000-Rs 15,000 monthly discretionary spend. 90% buy more from brands with exclusive offers; 99% share them onward. (RedSeer 2024)' }
+};
+
+// ═══ AFFIRMATION DATA ═══
+function getAffirmation(fromScreen) {
+  const d = formData;
+  switch(fromScreen) {
+    case 1: return null;
+    case 2: {
+      const m = {
+        food:{ icon:'ti-tools-kitchen-2', text:'Gen Z eats out 8x a month. You are in exactly the right space.' },
+        fashion:{ icon:'ti-shirt', text:'Gen Z sets trends before any ad runs. Perfect instinct.' },
+        beauty:{ icon:'ti-sparkles', text:'68% of Gen Z beauty decisions start with a peer signal. That is your edge.' },
+        edu:{ icon:'ti-book-2', text:'A student at 19 stays a customer for life. Long game thinking.' },
+        events:{ icon:'ti-confetti', text:'Gen Z buys experiences first, products second. Great fit.' },
+        other:{ icon:'ti-dots-circle-horizontal', text:'Gen Z spends on almost everything near campus. There is real room here.' }
+      };
+      return m[d.category] || { icon:'ti-check', text:'Great category. Let us dive deeper.' };
+    }
+    case 3: {
+      const s = d.gen_z_importance;
+      if(s >= 4) return { icon:'ti-rocket', text:'You already see the opportunity. Let us make it real.' };
+      if(s === 3) return { icon:'ti-bulb', text:'You are thinking it through. That is the right instinct.' };
+      return { icon:'ti-eye', text:'Honest answer. Here is what the data says.' };
+    }
+    case 4: {
+      const m = {
+        yes_consistently:{ icon:'ti-trending-up', text:'You are ahead of most. Let us make it systematic.' },
+        sometimes:{ icon:'ti-arrows-right-left', text:'Sporadic reach is fixable. ThinkUni makes it consistent.' },
+        tried:{ icon:'ti-refresh', text:'Most businesses hit this wall. The channel was wrong, not you.' },
+        not_yet:{ icon:'ti-clock-play', text:'The best time to start is now. You are already here.' },
+        no:{ icon:'ti-map-pin', text:'You are not alone. 85% of businesses near campuses are in the same spot.' }
+      };
+      return m[d.genz_reach] || { icon:'ti-users', text:'Good picture of your customer base.' };
+    }
+    case 5: {
+      const c = d.pain_points.length;
+      if(c >= 4) return { icon:'ti-shield-check', text:'You have seen every angle. That makes you a sharper partner.' };
+      if(c >= 2) return { icon:'ti-tools', text:'Real challenges. Every one of these is solvable with the right channel.' };
+      return { icon:'ti-check', text:'You have spotted the key gap. ThinkUni fills exactly that.' };
+    }
+    case 6: {
+      if(d.core_answer === 'yes') return { icon:'ti-rocket', text:'That is what we needed to hear. You are thinking like a founding partner.' };
+      if(d.core_answer === 'maybe') return { icon:'ti-bulb', text:'Curiosity is the right instinct. The numbers will convince you.' };
+      return { icon:'ti-clock', text:'Fair. The door stays open. Come back when you are ready.' };
+    }
+    case 7: return { icon:'ti-list-check', text:'Perfect priorities. Let us match them to the right offer structure.' };
+    case 8: return { icon:'ti-chart-bar', text:'Good instincts. Now let us decide how you want to run this.' };
+    case 9: {
+      if(d.offer_model === 'A') return { icon:'ti-speakerphone', text:'Volume builds awareness fast. Let us calibrate your pace.' };
+      if(d.offer_model === 'B') return { icon:'ti-target', text:'Fixed budget is how our top partners run it. Smart move.' };
+      return { icon:'ti-chart-line', text:'Data-first is how the best partnerships start.' };
+    }
+    case 10: {
+      if(d.launch_speed === 'this_week' || d.launch_speed === 'two_weeks') return { icon:'ti-bolt', text:'That kind of urgency puts you in the first cohort.' };
+      return { icon:'ti-calendar', text:'Good partnerships are built right, not fast.' };
+    }
+    case 11: return { icon:'ti-building-store', text:'Got it. Almost there. One last thing.' };
+    case 12: return { icon:'ti-message-2', text:'Perfect. Now tell us the one thing most platforms miss.' };
+    default: return null;
+  }
+}
+
+// ═══ AFFIRMATION SYSTEM ═══
+function showAffirmation(iconClass, message, callback) {
+  const overlay = document.getElementById('aff-overlay');
+  document.getElementById('aff-icon').className = 'ti ' + iconClass;
+  document.getElementById('aff-text').textContent = message;
+  overlay.classList.add('show');
+
+  let dismissed = false;
+  const dismiss = () => {
+    if(dismissed) return;
+    dismissed = true;
+    overlay.classList.remove('show');
+    overlay.onclick = null;
+    setTimeout(callback, 280);
+  };
+
+  overlay.onclick = dismiss;
+  setTimeout(dismiss, 1800);
+}
+
+// ═══ INIT ═══
+function init() {
+  document.getElementById('campus-eyebrow').textContent = 'ThinkUni x ' + CONFIG.CAMPUS_NAME;
+  const ctas = { A:'Start', B:"See if we're a fit", C:'Join the research' };
+  document.getElementById('btn-next').textContent = ctas[CONFIG.AB_VARIANT];
+  buildDots();
+  updateProgress();
+  staggerIn(1);
+  bindAll();
+}
+
+// ═══ DOTS ═══
+function buildDots() {
+  const c = document.getElementById('dot-indicators');
+  c.innerHTML = '';
+  for(let i=1;i<=13;i++){
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===1?' active':'');
+    d.id = 'dot-'+i;
+    c.appendChild(d);
+  }
+}
+
+function updateDots() {
+  for(let i=1;i<=13;i++){
+    const d = document.getElementById('dot-'+i);
+    if(d) d.className = 'dot' + (i===currentScreen?' active':'');
+  }
+}
+
+// ═══ PROGRESS ═══
+function updateProgress() {
+  const pct = currentScreen<=13 ? ((currentScreen-1)/12)*100 : 100;
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-wrap').style.display = currentScreen===14?'none':'block';
+}
+
+// ═══ STAGGER ═══
+function staggerIn(screenNum) {
+  const screen = document.getElementById('screen-'+screenNum);
+  if(!screen) return;
+  const items = screen.querySelectorAll('.s-item');
+  items.forEach((el,i) => {
+    el.classList.remove('s-in');
+    el.style.transitionDelay = (i*55)+'ms';
+  });
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      items.forEach(el => el.classList.add('s-in'));
+      // Clean up delays after animation
+      setTimeout(() => items.forEach(el => el.style.transitionDelay = ''), 55*items.length + 450);
+    });
+  });
+}
+
+// ═══ SHOW SCREEN ═══
+function showScreen(n, dir) {
+  const prev = document.getElementById('screen-'+currentScreen);
+  const next = document.getElementById('screen-'+n);
+  if(prev){ prev.classList.remove('active','anim-enter-right','anim-enter-left'); }
+  if(next){
+    next.classList.add('active', dir==='forward'?'anim-enter-right':'anim-enter-left');
+    next.scrollTop = 0;
+    setTimeout(() => next.classList.remove('anim-enter-right','anim-enter-left'), 450);
+  }
+  currentScreen = n;
+  updateProgress();
+  updateDots();
+  updateNavButtons();
+  staggerIn(n);
+  if(n===14){
+    setTimeout(() => document.getElementById('completion-icon-wrap').classList.add('animate'), 100);
+  }
+}
+
+// ═══ NAV BUTTONS ═══
+function updateNavButtons() {
+  const bb = document.getElementById('btn-back');
+  const bn = document.getElementById('btn-next');
+  const nav = document.getElementById('bottom-nav');
+  const dots = document.getElementById('dot-indicators');
+  if(currentScreen===14){ nav.style.display='none'; dots.style.display='none'; return; }
+  nav.style.display='flex'; dots.style.display='flex';
+  bb.style.display = currentScreen>1 ? 'block':'none';
+  const labels = {1:CONFIG.AB_VARIANT==='A'?'Start':CONFIG.AB_VARIANT==='B'?"See if we're a fit":'Join the research',2:'Next',3:'Next',4:'Next',5:'Next',6:'Next',7:'Next',8:'Next',9:'Next',10:'Next',11:'Next',12:'Next',13:'Submit'};
+  bn.textContent = labels[currentScreen]||'Next';
+}
+
+// ═══ GO NEXT ═══
+function goNext() {
+  if(!validateScreen(currentScreen)) return;
+  collectScreen(currentScreen);
+  if(currentScreen===13){ submitForm(); return; }
+
+  const aff = getAffirmation(currentScreen);
+  const nextNum = currentScreen + 1;
+  if(aff) {
+    showAffirmation(aff.icon, aff.text, () => showScreen(nextNum, 'forward'));
+  } else {
+    showScreen(nextNum, 'forward');
+  }
+}
+
+function goBack() {
+  if(currentScreen<=1) return;
+  showScreen(currentScreen-1, 'back');
+}
+
+// ═══ VALIDATION ═══
+function validateScreen(n) {
+  if(n===2 && !formData.category){ shakeEl(document.getElementById('category-grid')); return false; }
+  if(n===11){
+    if(!document.getElementById('business-name').value.trim()){ showErr('business-name','err-business'); return false; }
+  }
+  if(n===12){
+    if(!document.getElementById('contact-name').value.trim()){ showErr('contact-name','err-name'); return false; }
+    if(!validMobile(document.getElementById('whatsapp').value.trim())){ showErr('whatsapp','err-whatsapp'); return false; }
+  }
+  return true;
+}
+function validMobile(n){ return /^[6-9]\d{9}$/.test(n.replace(/\s/g,'')); }
+function showErr(inputId, errId){
+  const inp=document.getElementById(inputId), err=document.getElementById(errId);
+  inp.classList.add('error'); err.classList.add('show'); inp.focus();
+  inp.addEventListener('input',()=>{ inp.classList.remove('error'); err.classList.remove('show'); },{once:true});
+}
+function shakeEl(el){ el.style.animation='none'; void el.offsetHeight; el.style.animation='shake 400ms ease'; el.addEventListener('animationend',()=>el.style.animation='',{once:true}); }
+
+// ═══ COLLECT ═══
+function collectScreen(n){
+  if(n===11){ formData.business_name=document.getElementById('business-name').value.trim(); formData.city=document.getElementById('city').value.trim(); }
+  if(n===12){ formData.contact_name=document.getElementById('contact-name').value.trim(); formData.whatsapp='+91'+document.getElementById('whatsapp').value.trim(); formData.email=document.getElementById('email').value.trim(); formData.instagram=document.getElementById('instagram').value.trim(); formData.website=document.getElementById('website').value.trim(); }
+  if(n===13){ formData.open_question=document.getElementById('open-question').value.trim(); }
+}
+
+// ═══ LEAD SCORE ═══
+function calcScore(){
+  let s=0;
+  if(formData.gen_z_importance>=4) s+=2; else if(formData.gen_z_importance===3) s+=1;
+  if(formData.core_answer==='yes') s+=3; else if(formData.core_answer==='maybe') s+=1;
+  if(formData.offer_model==='A'||formData.offer_model==='B') s+=1;
+  if(formData.launch_speed==='this_week'||formData.launch_speed==='two_weeks') s+=1;
+  formData.lead_score=s;
+  formData.lead_tier = s>=5?'HIGH':s>=2?'MEDIUM':'LOW';
+  console.log('Lead Score:',s,'Tier:',formData.lead_tier);
+}
+
+// ═══ SUBMIT ═══
+async function submitForm(){
+  collectScreen(13); calcScore();
+  const payload={business_name:formData.business_name,contact_name:formData.contact_name,whatsapp:formData.whatsapp,email:formData.email,city:formData.city,category:formData.category,gen_z_importance:formData.gen_z_importance,core_answer:formData.core_answer,offer_model:formData.offer_model,launch_speed:formData.launch_speed,open_question:formData.open_question,lead_score:formData.lead_score,lead_tier:formData.lead_tier,submitted_at:new Date().toISOString()};
+  console.log('Submission:',JSON.stringify(payload,null,2));
+  if(CONFIG.WEBHOOK_URL){ try{ await fetch(CONFIG.WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); }catch(e){ console.warn('Webhook failed:',e); } }
+  populateCompletion();
+  showScreen(14,'forward');
+}
+
+function populateCompletion(){
+  const b=formData.business_name||'Your business';
+  document.getElementById('completion-body').textContent=`If ${b} fits our pilot model, your customised partnership proposal lands within 48 hours. We will send estimated Gen Z demand near you, recommended offer structures, and a monthly activation plan. ThinkUni launches in ${CONFIG.LAUNCH_MONTH}. The first cohort is capped and gets 3 months at zero platform fee.`;
+  document.getElementById('referral-text').textContent=`"Just filled a 3-min form from ThinkUni. Students from ${CONFIG.CAMPUS_NAME} building a Gen Z marketplace. Zero commission, 50-100 student customers a month. Worth a look: ${CONFIG.FORM_LINK}"`;
+}
+
+function copyReferral(){
+  const t=document.getElementById('referral-text').textContent;
+  const btn=document.getElementById('copy-btn');
+  navigator.clipboard.writeText(t).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}).finally(()=>{});
+  btn.textContent='Copied!';
+  setTimeout(()=>btn.textContent='Copy and Share',2000);
+}
+
+// ═══ BINDINGS ═══
+function bindAll(){
+  // Category chips
+  document.querySelectorAll('#category-grid .chip-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#category-grid .chip-card').forEach(x=>x.classList.remove('selected'));
+      c.classList.add('selected'); formData.category=c.dataset.cat;
+      const d=categoryData[formData.category];
+      if(d){
+        document.getElementById('reveal-head').textContent=d.head;
+        document.getElementById('reveal-stat').textContent=d.stat;
+        document.getElementById('reveal-body').textContent=d.body;
+        const r=document.getElementById('data-reveal');
+        r.classList.remove('show'); void r.offsetHeight; r.classList.add('show');
+      }
+    });
+  });
+
+  // Scale
+  document.querySelectorAll('#scale-row .scale-dot').forEach(d=>{
+    d.addEventListener('click',()=>{
+      document.querySelectorAll('#scale-row .scale-dot').forEach(x=>x.classList.remove('selected'));
+      d.classList.add('selected'); formData.gen_z_importance=parseInt(d.dataset.val);
+    });
+  });
+
+  // Multi-select chips
+  bindMultiChips('#customer-types .pill','customer_types');
+  bindMultiChips('#value-drivers .chip-card','value_drivers');
+
+  // Single-select pills
+  bindSinglePills('#decision-maker .pill', v=>formData.decision_maker=v);
+
+  // Multi-select rows
+  bindMultiRows('#pain-points .row-select-item','pain_points');
+  bindMultiRows('#offer-structures .row-select-item','offer_structures');
+
+  // Single-select rows (genz reach)
+  bindSingleRows('#genz-reach .row-select-item', v=>formData.genz_reach=v);
+
+  // Core answers
+  document.querySelectorAll('#core-answers .answer-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#core-answers .answer-card').forEach(x=>x.classList.remove('selected'));
+      c.classList.add('selected'); formData.core_answer=c.dataset.val;
+    });
+  });
+
+  // Offer models
+  document.querySelectorAll('#offer-models .offer-model-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#offer-models .offer-model-card').forEach(x=>x.classList.remove('selected'));
+      c.classList.add('selected'); formData.offer_model=c.dataset.val;
+    });
+  });
+
+  // Speed buttons
+  bindSpeedBtns('#offer-capacity .speed-btn', v=>formData.offer_capacity=v);
+  bindSpeedBtns('#launch-speed .speed-btn', v=>formData.launch_speed=v);
+
+  // Contact methods
+  document.querySelectorAll('#contact-method .contact-method-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('#contact-method .contact-method-btn').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected'); formData.contact_method=b.dataset.val;
+    });
+  });
+
+  // City suggestions
+  document.querySelectorAll('.city-tag').forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.getElementById('city').value=t.dataset.city;
+      document.querySelectorAll('.city-tag').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+}
+
+function bindMultiChips(sel, key){
+  document.querySelectorAll(sel).forEach(el=>{
+    el.addEventListener('click',()=>{
+      el.classList.toggle('selected');
+      const v=el.dataset.val;
+      if(el.classList.contains('selected')){ if(!formData[key].includes(v)) formData[key].push(v); }
+      else { formData[key]=formData[key].filter(x=>x!==v); }
+    });
+  });
+}
+
+function bindMultiRows(sel, key){
+  document.querySelectorAll(sel).forEach(el=>{
+    el.addEventListener('click',()=>{
+      el.classList.toggle('selected');
+      const v=el.dataset.val;
+      if(el.classList.contains('selected')){ if(!formData[key].includes(v)) formData[key].push(v); }
+      else { formData[key]=formData[key].filter(x=>x!==v); }
+    });
+  });
+}
+
+function bindSingleRows(sel, setter){
+  document.querySelectorAll(sel).forEach(el=>{
+    el.addEventListener('click',()=>{
+      document.querySelectorAll(sel).forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected'); setter(el.dataset.val);
+    });
+  });
+}
+
+function bindSinglePills(sel, setter){
+  document.querySelectorAll(sel).forEach(el=>{
+    el.addEventListener('click',()=>{
+      document.querySelectorAll(sel).forEach(x=>x.classList.remove('selected'));
+      el.classList.add('selected'); setter(el.dataset.val);
+    });
+  });
+}
+
+function bindSpeedBtns(sel, setter){
+  const els=document.querySelectorAll(sel);
+  els.forEach(b=>{ b.addEventListener('click',()=>{ els.forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); setter(b.dataset.val); }); });
+}
+
+// keyboard
+document.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!['TEXTAREA','INPUT'].includes(document.activeElement.tagName)) goNext(); });
+
+init();
+</script>
+</body>
+</html>
