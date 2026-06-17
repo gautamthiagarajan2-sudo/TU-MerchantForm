@@ -29,7 +29,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 
 /* ── TOP BAR ── */
 #top-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0;z-index:10}
-.logo-wordmark{font-size:20px;font-weight:900;letter-spacing:-0.5px;line-height:1}
+.logo-wordmark{display:flex;align-items:center;gap:7px;font-size:20px;font-weight:900;letter-spacing:-0.5px;line-height:1}
 .logo-wordmark .think{color:var(--white);font-style:normal}
 .logo-wordmark .uni{color:var(--orange);font-style:italic}
 #badge-gen-z{background:var(--orange-muted);color:var(--orange);border:1px solid var(--orange-border);font-size:10px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;border-radius:20px}
@@ -65,11 +65,12 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 #nav-actions{display:flex;gap:10px;align-items:center}
 
 /* ── TYPOGRAPHY ── */
-.eyebrow{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
-.screen-title{font-size:26px;font-weight:900;letter-spacing:-0.5px;line-height:1.2;margin-bottom:8px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.screen-title{font-size:22px;font-weight:700;letter-spacing:-0.3px;line-height:1.25;margin-bottom:8px}
 .screen-title .hl{color:var(--orange)}
-.screen-body{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:20px}
-.sub-label{font-size:12px;font-weight:600;color:var(--white);margin-bottom:10px;margin-top:16px}
+#screen-1 .screen-title{font-size:30px;font-weight:900;letter-spacing:-0.5px}
+.screen-body{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.sub-label{font-size:13px;font-weight:600;color:var(--white);margin-bottom:10px;margin-top:16px}
 .micro-copy{font-size:11px;color:var(--muted);text-align:center;line-height:1.5;margin-top:8px}
 .micro-copy strong{color:var(--orange)}
 
@@ -87,7 +88,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
 .stat-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px}
 .stat-icon{font-size:18px;color:var(--orange);margin-bottom:6px}
-.stat-number{font-size:22px;font-weight:900;color:var(--orange);line-height:1.1;margin-bottom:3px}
+.stat-number{font-size:24px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:3px}
 .stat-label{font-size:11px;color:var(--muted);font-weight:400;line-height:1.4}
 
 /* ── CHIP GRID ── */
@@ -158,10 +159,10 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .offer-model-card:active{transform:scale(0.98)}
 .offer-model-head{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .offer-model-letter{width:26px;height:26px;border-radius:8px;background:var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:background 220ms;flex-shrink:0}
-.offer-model-card.selected .offer-model-letter{background:var(--orange)}
+.offer-model-card.selected .offer-model-letter{background:var(--orange);color:#fff}
 .offer-model-body{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:8px;padding-left:34px}
 .offer-model-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;color:var(--muted);border:1px solid var(--dark-border);border-radius:20px;padding:3px 10px;margin-left:34px}
-.badge-smart{background:var(--orange);color:var(--white);font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px}
+.badge-smart{background:var(--orange);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px}
 
 /* ── SPEED BUTTONS ── */
 .speed-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
@@ -171,7 +172,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 
 /* ── INPUTS ── */
 .form-group{margin-bottom:14px}
-.form-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
+.form-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
 .form-input{width:100%;background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-input);padding:14px;font-family:'Poppins',sans-serif;font-size:14px;color:var(--white);outline:none;transition:border-color 200ms;min-height:50px}
 .form-input::placeholder{color:#ADADAB}
 .form-input:focus{border-color:var(--orange)}
@@ -216,6 +217,8 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 #screen-14{background:var(--orange) !important}
 #screen-14 .screen-title{color:#fff}
 #screen-14 .screen-body{color:rgba(255,255,255,.85)}
+#screen-14 .referral-head{color:#fff}
+#screen-14 .btn-copy{color:#fff}
 .completion-icon-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 @keyframes bounceIn{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
 .completion-icon-wrap.animate .celebration-img{animation:bounceIn 600ms var(--spring) both}
@@ -287,9 +290,9 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 <div id="form-shell">
 
   <div id="top-bar">
-    <div class="logo-wordmark"><span class="think">think</span><span class="uni">uni</span></div>
+    <div class="logo-wordmark"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect width="8" height="8" rx="2" fill="#FF5722"/><rect x="12" width="8" height="8" rx="2" fill="#FF5722" opacity="0.28"/><rect y="12" width="8" height="8" rx="2" fill="#FF5722" opacity="0.28"/><rect x="12" y="12" width="8" height="8" rx="2" fill="#FF5722"/></svg><span class="think">think</span><span class="uni">uni</span></div>
     <div id="badge-gen-z" style="display:flex;align-items:center;gap:5px">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="10"/></svg>
+      <svg width="7" height="7" viewBox="0 0 24 24" fill="#FF5722"><circle cx="12" cy="12" r="10"/></svg>
       Merchant Research
     </div>
   </div>
@@ -974,7 +977,9 @@ function updateNavButtons() {
 }
 
 // ═══ GO NEXT ═══
+let _navigating = false;
 function goNext() {
+  if(_navigating) return;
   if(!validateScreen(currentScreen)) return;
   collectScreen(currentScreen);
   if(currentScreen===13){ submitForm(); return; }
@@ -982,7 +987,8 @@ function goNext() {
   const aff = getAffirmation(currentScreen);
   const nextNum = currentScreen + 1;
   if(aff) {
-    showAffirmation(aff.icon, aff.text, () => showScreen(nextNum, 'forward'));
+    _navigating = true;
+    showAffirmation(aff.icon, aff.text, () => { _navigating = false; showScreen(nextNum, 'forward'); });
   } else {
     showScreen(nextNum, 'forward');
   }
@@ -996,6 +1002,8 @@ function goBack() {
 // ═══ VALIDATION ═══
 function validateScreen(n) {
   if(n===2 && !formData.category){ shakeEl(document.getElementById('category-grid')); return false; }
+  if(n===3 && !formData.gen_z_importance){ shakeEl(document.getElementById('scale-row')); return false; }
+  if(n===6 && !formData.core_answer){ shakeEl(document.getElementById('core-answers')); return false; }
   if(n===11){
     if(!document.getElementById('business-name').value.trim()){ showErr('business-name','err-business'); return false; }
   }
