@@ -258,11 +258,15 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 .stat-row-label{font-size:10px;color:var(--muted);line-height:1.4;margin-top:2px}
 
 /* ── STORE IMAGE ── */
-.store-img-wrap{background:#fff;border-radius:var(--r-card);overflow:hidden;margin:0 0 16px;padding:16px;display:flex;align-items:center;justify-content:center}
-.store-img{width:100%;max-width:260px;display:block;margin:0 auto}
+.store-img-wrap{border-radius:var(--r-card);overflow:hidden;margin:0 0 16px}
+.store-img{width:100%;display:block}
 
 /* ── CELEBRATION IMAGE ── */
-.celebration-img{width:160px;height:160px;object-fit:cover;border-radius:50%;display:block;margin:0 auto}
+.celebration-img{width:180px;height:auto;display:block;margin:0 auto}
+
+/* ── STAT + REFERRAL IMAGES ── */
+.stat-img{width:100%;display:block;border-radius:var(--r-card);margin:12px 0 16px}
+.referral-img{width:100%;display:block;border-radius:var(--r-card);margin:8px 0 20px;background:var(--dark-card);padding:16px;box-sizing:border-box}
 
 /* ── NEXT STEPS TIMELINE ── */
 .next-steps{margin:16px 0}
@@ -315,28 +319,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
         </div>
       </div>
 
-      <div class="stat-grid">
-        <div class="stat-card s-item">
-          <div class="stat-icon"><i class="ti ti-currency-rupee"></i></div>
-          <div class="stat-number">22B</div>
-          <div class="stat-label">Annual student discretionary spend</div>
-        </div>
-        <div class="stat-card s-item">
-          <div class="stat-icon"><i class="ti ti-users"></i></div>
-          <div class="stat-number">50K+</div>
-          <div class="stat-label">Verified students, 18+ campuses</div>
-        </div>
-        <div class="stat-card s-item">
-          <div class="stat-icon"><i class="ti ti-share"></i></div>
-          <div class="stat-number">99%</div>
-          <div class="stat-label">Share a good offer with friends instantly</div>
-        </div>
-        <div class="stat-card s-item">
-          <div class="stat-icon"><i class="ti ti-ban"></i></div>
-          <div class="stat-number">0%</div>
-          <div class="stat-label">Commission. Ever.</div>
-        </div>
-      </div>
+      <img src="img-stats.png" class="stat-img s-item" alt="₹22B student spend · 50K+ students · 99% share offers · 0% commission">
       <p class="micro-copy s-item">3-minute merchant research &middot; No obligation &middot; No cold call unless you ask.</p>
     </div>
 
@@ -404,20 +387,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
       <div class="eyebrow s-item">Step 2 of 7</div>
       <h1 class="screen-title s-item">How critical is <span class="hl">Gen Z</span> to you?</h1>
       <p class="screen-body s-item">They don't just buy. One good experience becomes an endorsement to their entire friend group.</p>
-      <div class="stat-row s-item">
-        <div class="stat-row-item">
-          <div class="stat-row-num">4.7x</div>
-          <div class="stat-row-label">More likely to refer after a great deal</div>
-        </div>
-        <div class="stat-row-item">
-          <div class="stat-row-num">99%</div>
-          <div class="stat-row-label">Share a good offer with a friend instantly</div>
-        </div>
-        <div class="stat-row-item">
-          <div class="stat-row-num">8x</div>
-          <div class="stat-row-label">Monthly dining visits for an average student</div>
-        </div>
-      </div>
+      <img src="img-referral.png" class="referral-img s-item" alt="Gen Z referral chain — one share reaches many">
       <div class="scale-row s-item" id="scale-row">
         <div class="scale-dot" data-val="1">1</div>
         <div class="scale-dot" data-val="2">2</div>
