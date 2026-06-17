@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/merchant-data", "destination": "/merchant-data.html" }
+  ]
+}
