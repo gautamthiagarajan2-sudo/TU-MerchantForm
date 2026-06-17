@@ -13,9 +13,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --orange:#FF5722;--orange-hover:#E04A1C;
-  --orange-muted:rgba(255,87,34,0.10);--orange-border:rgba(255,87,34,0.4);
-  --dark:#1C1C1C;--dark-card:#1A1A1A;--dark-border:#2A2A2A;
-  --bg:#0D0D0D;--white:#FFFFFF;--muted:#888888;
+  --orange-muted:rgba(255,87,34,0.07);--orange-border:rgba(255,87,34,0.18);
+  --dark:#E8E8E5;--dark-card:#FFFFFF;--dark-border:#EBEBEA;
+  --bg:#F7F7F5;--white:#18181A;--muted:#8A8A88;
   --r-card:16px;--r-btn:14px;--r-input:12px;
   --spring:cubic-bezier(0.34,1.56,0.64,1);
   --ease-out:cubic-bezier(0.22,1,0.36,1);
@@ -32,7 +32,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .logo-wordmark{font-size:20px;font-weight:900;letter-spacing:-0.5px;line-height:1}
 .logo-wordmark .think{color:var(--white);font-style:normal}
 .logo-wordmark .uni{color:var(--orange);font-style:italic}
-#badge-gen-z{background:var(--orange);color:var(--white);font-size:10px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;border-radius:20px}
+#badge-gen-z{background:var(--orange-muted);color:var(--orange);border:1px solid var(--orange-border);font-size:10px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;border-radius:20px}
 
 /* ── PROGRESS ── */
 #progress-wrap{flex-shrink:0;padding:10px 20px 0}
@@ -74,11 +74,11 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .micro-copy strong{color:var(--orange)}
 
 /* ── BUTTONS ── */
-.btn-primary{width:100%;background:var(--orange);color:var(--white);border:none;border-radius:var(--r-btn);padding:16px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background 200ms,transform 120ms var(--spring);display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;-webkit-tap-highlight-color:transparent}
+.btn-primary{width:100%;background:var(--orange);color:#fff;border:none;border-radius:var(--r-btn);padding:16px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background 200ms,transform 120ms var(--spring);display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;-webkit-tap-highlight-color:transparent}
 .btn-primary:active{transform:scale(0.97);background:var(--orange-hover)}
 .btn-primary:disabled{opacity:.4;cursor:not-allowed}
 .btn-back{background:none;border:none;color:var(--muted);font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;cursor:pointer;padding:10px 0;-webkit-tap-highlight-color:transparent;white-space:nowrap}
-.btn-back:active{color:var(--white)}
+.btn-back:active{color:var(--orange)}
 
 /* ── HERO SVG ── */
 .hero-svg-wrap{margin:16px 0;border-radius:var(--r-card);overflow:hidden;background:var(--dark-card);border:1.5px solid var(--dark-border)}
@@ -112,7 +112,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 /* ── SCALE ── */
 .scale-row{display:flex;gap:10px;justify-content:center;margin:24px 0 10px}
 .scale-dot{width:48px;height:48px;border-radius:50%;background:var(--dark-card);border:1.5px solid var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;cursor:pointer;transition:all 220ms var(--spring);-webkit-tap-highlight-color:transparent}
-.scale-dot.selected{background:var(--orange);border-color:var(--orange);color:var(--white);transform:scale(1.12)}
+.scale-dot.selected{background:var(--orange);border-color:var(--orange);color:#fff;transform:scale(1.12)}
 .scale-labels{display:flex;justify-content:space-between;margin-bottom:20px}
 .scale-label{font-size:10px;color:var(--muted);font-weight:400}
 
@@ -134,7 +134,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .row-select-item:active{transform:scale(0.98)}
 .row-check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--dark-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 220ms var(--spring)}
 .row-select-item.selected .row-check{background:var(--orange);border-color:var(--orange)}
-.row-check-icon{display:none;font-size:13px;font-weight:700;color:var(--white)}
+.row-check-icon{display:none;font-size:13px;font-weight:700;color:#fff}
 .row-select-item.selected .row-check-icon{display:block}
 .row-text{font-size:13px;font-weight:500;flex:1}
 
@@ -173,7 +173,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .form-group{margin-bottom:14px}
 .form-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:block}
 .form-input{width:100%;background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-input);padding:14px;font-family:'Poppins',sans-serif;font-size:14px;color:var(--white);outline:none;transition:border-color 200ms;min-height:50px}
-.form-input::placeholder{color:#333}
+.form-input::placeholder{color:#ADADAB}
 .form-input:focus{border-color:var(--orange)}
 textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 .input-prefix-wrap{position:relative}
@@ -199,7 +199,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 .callout .hl{color:var(--orange)}
 
 /* ── AFFIRMATION OVERLAY ── */
-#aff-overlay{position:absolute;inset:0;background:rgba(13,13,13,0.97);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:50;opacity:0;pointer-events:none;transition:opacity 260ms ease;border-radius:inherit;padding:32px}
+#aff-overlay{position:absolute;inset:0;background:rgba(247,247,245,0.96);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:50;opacity:0;pointer-events:none;transition:opacity 260ms ease;border-radius:inherit;padding:32px}
 #aff-overlay.show{opacity:1;pointer-events:auto}
 .aff-icon-wrap{width:72px;height:72px;border-radius:50%;background:var(--orange-muted);border:1.5px solid var(--orange-border);display:flex;align-items:center;justify-content:center}
 .aff-icon-wrap .ti{font-size:32px;color:var(--orange)}
@@ -214,7 +214,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 
 /* ── COMPLETION ── */
 #screen-14{background:var(--orange) !important}
-#screen-14 .screen-title{color:var(--white)}
+#screen-14 .screen-title{color:#fff}
 #screen-14 .screen-body{color:rgba(255,255,255,.85)}
 .completion-icon-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 @keyframes bounceIn{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.1)}70%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
@@ -307,8 +307,8 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 
       <div class="hero-img-wrap s-item">
         <img src="img-network.png" class="hero-img" alt="ThinkUni campus network">
-        <div style="background:#0D0D0D;text-align:center;padding:8px 12px;border-top:1px solid #1C1C1C">
-          <span style="font-size:9px;font-weight:600;letter-spacing:1.5px;color:rgba(255,87,34,0.6);text-transform:uppercase">50,000+ Verified Students Across 18+ Campuses</span>
+        <div style="background:#F0F0EE;text-align:center;padding:8px 12px;border-top:1px solid #EBEBEA">
+          <span style="font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase">50,000+ Verified Students Across 18+ Campuses</span>
         </div>
       </div>
 
@@ -465,7 +465,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
       <h1 class="screen-title s-item">What's holding you back?</h1>
       <p class="screen-body s-item">Select all that apply. Honest answers shape your proposal.</p>
       <div class="trust-banner s-item">
-        <div class="trust-badge" style="background:#1C1C1C;border:1.5px solid var(--dark-border)">
+        <div class="trust-badge" style="background:#F0F0EE;border:1.5px solid var(--dark-border)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         </div>
         <div class="trust-content"><strong>Zomato / Swiggy</strong> take 20-30% per order. ThinkUni takes <strong style="color:var(--orange)">0%</strong> commission. Ever.</div>
@@ -542,7 +542,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-8">
       <div class="eyebrow s-item">Step 6 of 7 (continued)</div>
       <h1 class="screen-title s-item">Which offer types interest you?</h1>
-      <div style="background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 16px;margin-bottom:14px" class="s-item">
+      <div style="background:var(--bg);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 16px;margin-bottom:14px" class="s-item">
         <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px">How ThinkUni Routing Works</div>
         <div class="proof-row" style="margin-bottom:8px;background:transparent;border:none;padding:4px 0">
           <div class="proof-dot"></div>
@@ -622,8 +622,8 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
       <div class="eyebrow s-item">Step 7 of 7</div>
       <h1 class="screen-title s-item">Tell us about your business.</h1>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px" class="s-item">
-        <div style="flex:1;height:4px;background:var(--orange);border-radius:2px"></div>
-        <span style="font-size:10px;font-weight:600;color:var(--orange);white-space:nowrap">90% done</span>
+        <div style="flex:1;height:3px;background:var(--dark-border);border-radius:2px;overflow:hidden"><div style="width:90%;height:100%;background:var(--orange);border-radius:2px"></div></div>
+        <span style="font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap">90% done</span>
       </div>
       <div class="form-group s-item">
         <label class="form-label">Business Name *</label>
