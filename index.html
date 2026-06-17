@@ -265,8 +265,15 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 .celebration-img{width:180px;height:auto;display:block;margin:0 auto}
 
 /* ── STAT + REFERRAL IMAGES ── */
-.stat-img{width:100%;display:block;border-radius:var(--r-card);margin:12px 0 16px}
-.referral-img{width:100%;display:block;border-radius:var(--r-card);margin:8px 0 20px;background:var(--dark-card);padding:16px;box-sizing:border-box}
+.stat-img{width:100%;display:block;border-radius:var(--r-card);margin:12px 0 16px;max-height:210px;object-fit:contain}
+.referral-img{width:100%;display:block;border-radius:var(--r-card);margin:8px 0 16px;max-height:190px;object-fit:contain;background:var(--dark-card);padding:10px;box-sizing:border-box}
+
+/* ── COMPACT OFFER CARDS ── */
+.offer-model-body{display:none}
+.offer-model-card{padding:13px 14px;margin-bottom:8px}
+.offer-model-tag{margin-left:0}
+.offer-model-head{align-items:flex-start}
+.offer-model-head .om-text{flex:1;min-width:0}
 
 /* ── NEXT STEPS TIMELINE ── */
 .next-steps{margin:16px 0}
@@ -386,7 +393,6 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-3">
       <div class="eyebrow s-item">Step 2 of 7</div>
       <h1 class="screen-title s-item">How critical is <span class="hl">Gen Z</span> to you?</h1>
-      <p class="screen-body s-item">They don't just buy. One good experience becomes an endorsement to their entire friend group.</p>
       <img src="img-referral.png" class="referral-img s-item" alt="Gen Z referral chain — one share reaches many">
       <div class="scale-row s-item" id="scale-row">
         <div class="scale-dot" data-val="1">1</div>
@@ -398,10 +404,6 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
       <div class="scale-labels s-item">
         <span class="scale-label">Not a priority</span>
         <span class="scale-label">Critical to growth</span>
-      </div>
-      <div class="trust-banner s-item">
-        <div class="trust-badge"><i class="ti ti-chart-line"></i></div>
-        <div class="trust-content"><strong>88% of students</strong> near campus can't find good deals nearby. That's your untapped pipeline. <em style="color:var(--orange)">ThinkUni research 2025</em></div>
       </div>
     </div>
 
@@ -426,17 +428,12 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
         <div class="row-select-item s-item" data-val="not_yet"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">Not yet</div></div>
         <div class="row-select-item s-item" data-val="no"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">No</div></div>
       </div>
-      <div class="quote-block s-item">
-        <div class="quote-text">"85% of businesses near campuses don't have a system that converts Gen Z. It's not a skill gap. There's no verified channel. That's the gap ThinkUni fills."</div>
-        <div class="quote-attr">ThinkUni Merchant Research 2025</div>
-      </div>
     </div>
 
     <!-- ── S5: PAIN POINTS ── -->
     <div class="screen" id="screen-5">
       <div class="eyebrow s-item">Step 4 of 7</div>
       <h1 class="screen-title s-item">What's holding you back?</h1>
-      <p class="screen-body s-item">Select all that apply. Honest answers shape your proposal.</p>
       <div class="trust-banner s-item">
         <div class="trust-badge" style="background:#F0F0EE;border:1.5px solid var(--dark-border)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
@@ -461,21 +458,21 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <!-- ── S6: CORE CONVERSION ── -->
     <div class="screen" id="screen-6">
       <div class="eyebrow s-item">Step 5 of 7 &middot; The key question</div>
-      <div class="store-img-wrap s-item">
-        <img src="img-store-crowd.png" class="store-img" alt="50-100 Gen Z customers coming to your store">
+      <div class="store-img-wrap s-item" style="max-height:160px;overflow:hidden">
+        <img src="img-store-crowd.png" class="store-img" alt="50-100 Gen Z customers coming to your store" style="object-fit:cover;object-position:top;height:160px">
       </div>
-      <div style="background:var(--orange);border-radius:var(--r-card);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px" class="s-item">
+      <div style="background:var(--orange);border-radius:var(--r-card);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px" class="s-item">
         <div>
-          <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.85;margin-bottom:2px">ThinkUni delivers</div>
-          <div style="font-size:40px;font-weight:900;line-height:1;margin-bottom:2px">50-100</div>
-          <div style="font-size:12px;font-weight:500;opacity:.9;line-height:1.4">new Gen Z customers/month<br>zero commission, AI-matched</div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.85;margin-bottom:1px">ThinkUni delivers</div>
+          <div style="font-size:28px;font-weight:900;line-height:1;margin-bottom:1px">50–100 students/month</div>
+          <div style="font-size:11px;font-weight:500;opacity:.9">zero commission · AI-matched</div>
         </div>
         <div style="text-align:center;flex-shrink:0">
-          <div style="font-size:28px;font-weight:900;line-height:1">0%</div>
-          <div style="font-size:10px;font-weight:600;opacity:.85;letter-spacing:.5px">COMMISSION</div>
+          <div style="font-size:22px;font-weight:900;line-height:1">0%</div>
+          <div style="font-size:9px;font-weight:600;opacity:.85;letter-spacing:.5px">FEE</div>
         </div>
       </div>
-      <h1 class="screen-title s-item" style="font-size:18px;">If ThinkUni brought your business 50-100 Gen Z students every month as an ongoing growth channel, would you want in?</h1>
+      <h1 class="screen-title s-item" style="font-size:17px;margin-bottom:12px">Would you want 50–100 Gen Z students every month at zero commission?</h1>
       <div class="answer-grid s-item" id="core-answers" style="margin-top:12px">
         <div class="answer-card" data-val="yes">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -497,10 +494,6 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-7">
       <div class="eyebrow s-item">Step 6 of 7</div>
       <h1 class="screen-title s-item">What would make ThinkUni <span class="hl">most valuable</span>?</h1>
-      <div class="quote-block s-item">
-        <div class="quote-text">"I don't want to pay 25% every order forever. I want students who come back because they actually like my place."</div>
-        <div class="quote-attr">Campus business owner, Chennai 2025</div>
-      </div>
       <div class="chip-grid s-item" id="value-drivers" style="margin-top:8px">
         <div class="chip-card" data-val="zero_commission" style="min-height:64px"><div class="chip-label">Zero commission</div></div>
         <div class="chip-card" data-val="more_customers" style="min-height:64px"><div class="chip-label">More customers monthly</div></div>
@@ -515,21 +508,6 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-8">
       <div class="eyebrow s-item">Step 6 of 7 (continued)</div>
       <h1 class="screen-title s-item">Which offer types interest you?</h1>
-      <div style="background:var(--bg);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:14px 16px;margin-bottom:14px" class="s-item">
-        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:8px">How ThinkUni Routing Works</div>
-        <div class="proof-row" style="margin-bottom:8px;background:transparent;border:none;padding:4px 0">
-          <div class="proof-dot"></div>
-          <div class="proof-text">A <strong>30% flash deal</strong> doesn't go to all 50,000 students</div>
-        </div>
-        <div class="proof-row" style="margin-bottom:8px;background:transparent;border:none;padding:4px 0">
-          <div class="proof-dot"></div>
-          <div class="proof-text">It goes to the <strong style="color:var(--orange)">20 most likely to visit you first</strong></div>
-        </div>
-        <div class="proof-row" style="background:transparent;border:none;padding:4px 0">
-          <div class="proof-dot"></div>
-          <div class="proof-text">You set the cap. <strong>99% share it onward</strong> to friends</div>
-        </div>
-      </div>
       <div id="offer-structures">
         <div class="row-select-item s-item" data-val="10pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">10% baseline</div></div>
         <div class="row-select-item s-item" data-val="15pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">15% repeat-customer</div></div>
@@ -544,23 +522,16 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <!-- ── S9: OFFER MODEL ── -->
     <div class="screen" id="screen-9">
       <div class="eyebrow s-item">Step 6 of 7 (continued)</div>
-      <h1 class="screen-title s-item">How do you want to run your offers?</h1>
-      <p class="screen-body s-item">Two models. Most partners start with one, then blend both as they grow.</p>
+      <h1 class="screen-title s-item">Pick your offer model.</h1>
       <div id="offer-models">
         <div class="offer-model-card s-item" data-val="A">
-          <div class="offer-model-head"><div class="offer-model-letter">A</div>Offer Volume Model</div>
-          <div class="offer-model-body">Run ~50 offers/month across 15%, 20%, 30% tiers. ThinkUni routes each to the right students.</div>
-          <div class="offer-model-tag">Best for: max reach and new customers</div>
+          <div class="offer-model-head"><div class="offer-model-letter">A</div><div class="om-text"><div>Offer Volume Model</div><div style="font-size:10px;font-weight:500;color:var(--muted);margin-top:2px">~50 offers/month · max reach</div></div></div>
         </div>
         <div class="offer-model-card s-item" data-val="B">
-          <div class="offer-model-head"><div class="offer-model-letter">B</div>Fixed Budget Model<span class="badge-smart">Smart pick</span></div>
-          <div class="offer-model-body">Set a monthly discount budget (e.g. Rs 10,000). We target it at your highest-value students. No blanket discounts, no margin leak.</div>
-          <div class="offer-model-tag">Best for: predictable spend and repeat buyers</div>
+          <div class="offer-model-head"><div class="offer-model-letter">B</div><div class="om-text"><div>Fixed Budget Model <span class="badge-smart">Smart pick</span></div><div style="font-size:10px;font-weight:500;color:var(--muted);margin-top:2px">Set a monthly cap · predictable spend</div></div></div>
         </div>
         <div class="offer-model-card s-item" data-val="C">
-          <div class="offer-model-head"><div class="offer-model-letter">C</div>Both / Not sure yet</div>
-          <div class="offer-model-body">Show me which performs better in the pilot.</div>
-          <div class="offer-model-tag">Best for: data-first partners</div>
+          <div class="offer-model-head"><div class="offer-model-letter">C</div><div class="om-text"><div>Both / Not sure yet</div><div style="font-size:10px;font-weight:500;color:var(--muted);margin-top:2px">Show me what works in the pilot</div></div></div>
         </div>
       </div>
     </div>
@@ -583,10 +554,6 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
         <div class="speed-btn" data-val="two_weeks">Within 2 weeks</div>
         <div class="speed-btn" data-val="one_month">Within a month</div>
         <div class="speed-btn" data-val="need_approval">Need approval</div>
-      </div>
-      <div class="trust-banner s-item">
-        <div class="trust-badge"><i class="ti ti-rocket"></i></div>
-        <div class="trust-content"><strong>First-mover advantage:</strong> Founding partner slots are capped. The sooner you're in, the better your campus placement priority.</div>
       </div>
     </div>
 
