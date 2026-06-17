@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ThinkUni x Merchant Research</title>
+<title>ThinkUni · Merchant Partner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
@@ -232,6 +232,18 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 .completion-footer{text-align:center;margin-top:20px;font-size:12px;color:rgba(255,255,255,.6);font-weight:500}
 .section-divider{height:1px;background:var(--dark-border);margin:20px 0}
 
+/* ── SCREEN-1 HERO MODE — hide topbar/progress ── */
+.screen-1-active #top-bar{display:none!important}
+.screen-1-active #progress-wrap{display:none!important}
+.screen-1-active #dot-indicators{display:none!important}
+.screen-1-active #campus-eyebrow{display:none!important}
+
+/* ── HERO STAT GRID ── */
+.hero-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 8px}
+.hero-stat-card{background:var(--dark-card);border:1.5px solid var(--dark-border);border-radius:var(--r-card);padding:12px}
+.hero-stat-num{font-size:22px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:3px}
+.hero-stat-label{font-size:10px;color:var(--muted);font-weight:400;line-height:1.35}
+
 /* ── SHAKE ── */
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
 
@@ -302,10 +314,6 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 
   <div id="top-bar">
     <div class="logo-wordmark"><img src="logo-full.svg" height="26" style="display:block"></div>
-    <div id="badge-gen-z" style="display:flex;align-items:center;gap:5px">
-      <svg width="7" height="7" viewBox="0 0 24 24" fill="#FF5722"><circle cx="12" cy="12" r="10"/></svg>
-      Merchant Research
-    </div>
   </div>
   <div id="progress-wrap">
     <div id="progress-track"><div id="progress-fill"></div></div>
@@ -315,19 +323,32 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 
     <!-- ── S1: HERO ── -->
     <div class="screen active" id="screen-1">
-      <div class="eyebrow s-item" id="campus-eyebrow">ThinkUni x Your Campus</div>
-      <h1 class="screen-title s-item">We built this for <span class="hl">Gen Z</span>. For you.</h1>
-      <p class="screen-body s-item">Gen Z decides where everyone eats, shops, and spends. Right now, very little of that 22 billion rupees in student spend reaches local businesses near campus. We are changing that. We want to understand your business first.</p>
+      <div class="s-item" style="text-align:center;padding:20px 0 10px">
+        <img src="logo-full.svg" height="38" style="display:inline-block">
+      </div>
+      <div class="eyebrow s-item" id="campus-eyebrow" style="text-align:center">ThinkUni x Your Campus</div>
+      <h1 class="screen-title s-item" style="text-align:center;font-size:22px;font-weight:900;letter-spacing:-0.5px;margin-bottom:6px">We built this for <span class="hl">Gen Z</span>. For you.</h1>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:0;line-height:1.5" class="s-item">Students near campus · ₹22B local spend · 0% commission</p>
 
-      <div class="hero-img-wrap s-item">
-        <img src="img-network.png" class="hero-img" alt="ThinkUni campus network">
-        <div style="background:#F0F0EE;text-align:center;padding:8px 12px;border-top:1px solid #EBEBEA">
-          <span style="font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--orange);text-transform:uppercase">50,000+ Verified Students Across 18+ Campuses</span>
+      <div class="hero-stat-grid s-item">
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">₹22B</div>
+          <div class="hero-stat-label">Student spend yearly near campuses</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">50K+</div>
+          <div class="hero-stat-label">Verified students, 18+ campuses</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">99%</div>
+          <div class="hero-stat-label">Students share offers with peers</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-num">0%</div>
+          <div class="hero-stat-label">Commission. Ever.</div>
         </div>
       </div>
-
-      <img src="img-stats.png" class="stat-img s-item" alt="₹22B student spend · 50K+ students · 99% share offers · 0% commission">
-      <p class="micro-copy s-item">3-minute merchant research &middot; No obligation &middot; No cold call unless you ask.</p>
+      <p class="micro-copy s-item">3-minute research &middot; No obligation &middot; No cold call unless you ask</p>
     </div>
 
     <!-- ── S2: CATEGORY ── -->
@@ -458,14 +479,12 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <!-- ── S6: CORE CONVERSION ── -->
     <div class="screen" id="screen-6">
       <div class="eyebrow s-item">Step 5 of 7 &middot; The key question</div>
-      <div class="store-img-wrap s-item" style="max-height:160px;overflow:hidden">
-        <img src="img-store-crowd.png" class="store-img" alt="50-100 Gen Z customers coming to your store" style="object-fit:cover;object-position:top;height:160px">
-      </div>
+      <img src="img-store-crowd.png" class="s-item" alt="50-100 Gen Z customers coming to your store" style="width:100%;height:200px;object-fit:contain;display:block;border-radius:var(--r-card);margin:0 0 12px">
       <div style="background:var(--orange);border-radius:var(--r-card);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px" class="s-item">
         <div>
           <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.85;margin-bottom:1px">ThinkUni delivers</div>
           <div style="font-size:28px;font-weight:900;line-height:1;margin-bottom:1px">50–100 students/month</div>
-          <div style="font-size:11px;font-weight:500;opacity:.9">zero commission · AI-matched</div>
+          <div style="font-size:11px;font-weight:500;opacity:.9">zero commission · zero platform fee</div>
         </div>
         <div style="text-align:center;flex-shrink:0">
           <div style="font-size:22px;font-weight:900;line-height:1">0%</div>
@@ -834,6 +853,7 @@ function init() {
   updateProgress();
   staggerIn(1);
   bindAll();
+  document.getElementById('form-shell').classList.add('screen-1-active');
 }
 
 // ═══ DOTS ═══
@@ -891,6 +911,7 @@ function showScreen(n, dir) {
     setTimeout(() => next.classList.remove('anim-enter-right','anim-enter-left'), 450);
   }
   currentScreen = n;
+  document.getElementById('form-shell').classList.toggle('screen-1-active', n === 1);
   updateProgress();
   updateDots();
   updateNavButtons();
