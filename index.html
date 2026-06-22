@@ -35,12 +35,12 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 #badge-gen-z{background:var(--orange-muted);color:var(--orange);border:1px solid var(--orange-border);font-size:10px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;border-radius:20px}
 
 /* ── PROGRESS ── */
-#progress-wrap{flex-shrink:0;padding:10px 20px 0}
+#progress-wrap{flex-shrink:0;padding:10px 20px 0;position:relative;z-index:10}
 #progress-track{height:3px;background:var(--dark-border);border-radius:2px;overflow:hidden}
 #progress-fill{height:100%;background:var(--orange);border-radius:2px;width:0%;transition:width 600ms var(--ease-out)}
 
 /* ── SCREENS ── */
-#screens-container{flex:1;overflow:hidden;position:relative}
+#screens-container{flex:1;overflow:hidden;position:relative;z-index:1}
 .screen{display:none;flex-direction:column;height:100%;overflow-y:auto;overflow-x:hidden;padding:20px 20px 150px;-webkit-overflow-scrolling:touch}
 .screen.active{display:flex}
 .screen::-webkit-scrollbar{display:none}
@@ -59,7 +59,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 
 /* ── BOTTOM NAV ── */
 #bottom-nav{position:absolute;bottom:0;left:0;right:0;padding:12px 20px max(20px,env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 68%,transparent);z-index:20;display:flex;flex-direction:column;gap:10px}
-#dot-indicators{display:flex;align-items:center;justify-content:center;gap:6px}
+#dot-indicators{display:none;align-items:center;justify-content:center;gap:6px}
 .dot{width:6px;height:6px;border-radius:3px;background:var(--dark-border);transition:all 350ms var(--spring)}
 .dot.active{width:18px;background:var(--orange)}
 #nav-actions{display:flex;gap:10px;align-items:center}
@@ -106,9 +106,17 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 #data-reveal{display:none;border:1.5px solid var(--orange-border);border-radius:var(--r-card);padding:16px;margin-bottom:16px;background:rgba(255,87,34,0.12)}
 @keyframes revealIn{from{opacity:0;transform:translateY(-10px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 #data-reveal.show{display:block;animation:revealIn 380ms var(--ease-out) both}
-.data-reveal-head{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
-.data-reveal-stat{font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px}
-.data-reveal-body{font-size:12px;color:var(--muted);line-height:1.6}
+.data-reveal-head{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--orange);margin-bottom:4px}
+.data-reveal-stat{font-size:40px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:6px;letter-spacing:-1px}
+.data-reveal-body{font-size:12px;color:var(--white);font-weight:600;line-height:1.5;margin-bottom:10px}
+.data-reveal-points{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px}
+.data-reveal-points li{position:relative;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.5;opacity:0;transform:translateY(6px);animation:revealPoint 420ms var(--ease-out) forwards}
+.data-reveal-points li::before{content:'';position:absolute;left:2px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.data-reveal-points li:nth-child(1){animation-delay:120ms}
+.data-reveal-points li:nth-child(2){animation-delay:220ms}
+.data-reveal-points li:nth-child(3){animation-delay:320ms}
+@keyframes revealPoint{to{opacity:1;transform:translateY(0)}}
+.data-reveal-source{font-size:10px;color:var(--muted);opacity:.75;letter-spacing:.3px}
 
 /* ── SCALE ── */
 .scale-row{display:flex;gap:10px;justify-content:center;margin:24px 0 10px}
@@ -306,6 +314,35 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 .proof-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
 .proof-text{font-size:12px;color:var(--muted);line-height:1.4}
 .proof-text strong{color:var(--white)}
+
+/* ── AMBIENT DRIFTING GLOW ── */
+#form-shell::before,#form-shell::after{content:'';position:absolute;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none}
+#form-shell::before{width:85%;height:42%;top:-12%;left:-22%;background:radial-gradient(circle,rgba(255,87,34,0.20),transparent 70%);animation:driftA 19s ease-in-out infinite}
+#form-shell::after{width:75%;height:40%;bottom:-10%;right:-20%;background:radial-gradient(circle,rgba(255,87,34,0.13),transparent 70%);animation:driftB 24s ease-in-out infinite}
+@keyframes driftA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(42px,32px) scale(1.08)}}
+@keyframes driftB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,-26px) scale(1.1)}}
+
+/* ── FLOATING HERO ART ── */
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.hero-img-wrap .hero-img{animation:floaty 5.5s ease-in-out infinite}
+.illus{animation:floaty 6.5s ease-in-out infinite}
+
+/* ── BREATHING VALUE BLOCK (S6) ── */
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(255,87,34,0)}50%{box-shadow:0 8px 30px -6px rgba(255,87,34,0.45)}}
+#screen-6 > div[style*="background:var(--orange)"]{animation:breathe 4s ease-in-out infinite}
+
+/* ── HERO STAT NUMBER POP ── */
+@keyframes statPop{0%{transform:scale(.7);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.hero-stat-num{animation:statPop 600ms var(--spring) both}
+.hero-stat-card:nth-child(1) .hero-stat-num{animation-delay:.15s}
+.hero-stat-card:nth-child(2) .hero-stat-num{animation-delay:.28s}
+.hero-stat-card:nth-child(3) .hero-stat-num{animation-delay:.41s}
+.hero-stat-card:nth-child(4) .hero-stat-num{animation-delay:.54s}
+
+/* ── RESPECT REDUCED MOTION ── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
@@ -349,6 +386,9 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
         </div>
       </div>
       <p class="micro-copy s-item">3-minute research &middot; No obligation &middot; No cold call unless you ask</p>
+      <div class="hero-img-wrap s-item" style="margin-top:18px">
+        <img src="img-network.png" class="hero-img" alt="ThinkUni connects campus students to nearby local merchants">
+      </div>
     </div>
 
     <!-- ── S2: CATEGORY ── -->
@@ -407,6 +447,8 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
         <div class="data-reveal-head" id="reveal-head"></div>
         <div class="data-reveal-stat" id="reveal-stat"></div>
         <div class="data-reveal-body" id="reveal-body"></div>
+        <ul class="data-reveal-points" id="reveal-points"></ul>
+        <div class="data-reveal-source" id="reveal-source"></div>
       </div>
     </div>
 
@@ -414,6 +456,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-3">
       <div class="eyebrow s-item">Step 2 of 7</div>
       <h1 class="screen-title s-item">How critical is <span class="hl">Gen Z</span> to you?</h1>
+      <p class="screen-body s-item" style="margin-bottom:12px">They don't just buy — they decide what their entire friend group chooses.</p>
       <img src="img-referral.png" class="referral-img s-item" alt="Gen Z referral chain — one share reaches many">
       <div class="scale-row s-item" id="scale-row">
         <div class="scale-dot" data-val="1">1</div>
@@ -432,6 +475,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-4">
       <div class="eyebrow s-item">Step 3 of 7</div>
       <h1 class="screen-title s-item">Who buys from you right now?</h1>
+      <img src="img-customers.png" class="s-item illus" alt="Students, professionals and families queueing at a local shop counter" style="width:100%;height:150px;object-fit:contain;display:block;margin:4px 0 8px">
       <div class="sub-label s-item">Select all that apply</div>
       <div class="pill-group s-item" id="customer-types">
         <div class="pill" data-val="students">College students</div>
@@ -492,7 +536,8 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
           <div style="font-size:9px;font-weight:600;opacity:.85;letter-spacing:.5px">FEE</div>
         </div>
       </div>
-      <h1 class="screen-title s-item" style="font-size:17px;margin-bottom:12px">Would you want 50–100 Gen Z students every month at zero commission?</h1>
+      <h1 class="screen-title s-item" style="font-size:17px;margin-bottom:10px">Would you want 50–100 Gen Z students every month at zero commission?</h1>
+      <div class="callout s-item" style="margin-bottom:14px"><strong>AI</strong> matches your offer to students most likely to buy &middot; <strong>Campus ambassadors</strong> promote you on-ground &middot; You keep <span class="hl">100% of every sale</span>.</div>
       <div class="answer-grid s-item" id="core-answers" style="margin-top:12px">
         <div class="answer-card" data-val="yes">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -514,7 +559,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-7">
       <div class="eyebrow s-item">Step 6 of 7</div>
       <h1 class="screen-title s-item">What would make ThinkUni <span class="hl">most valuable</span>?</h1>
-      <img src="img-value.png" class="s-item" alt="Gen Z students flowing into store at 0% commission" style="width:100%;height:160px;object-fit:cover;object-position:center;display:block;border-radius:var(--r-card);margin:8px 0 12px">
+      <img src="img-analytics.png" class="s-item illus" alt="Merchant viewing customer analytics and growth charts" style="width:100%;height:170px;object-fit:contain;display:block;margin:4px 0 10px">
       <div class="chip-grid s-item" id="value-drivers" style="margin-top:8px">
         <div class="chip-card" data-val="zero_commission" style="min-height:64px"><div class="chip-label">Zero commission</div></div>
         <div class="chip-card" data-val="more_customers" style="min-height:64px"><div class="chip-label">More customers monthly</div></div>
@@ -529,6 +574,8 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-8">
       <div class="eyebrow s-item">Step 6 of 7 (continued)</div>
       <h1 class="screen-title s-item">Which offer types interest you?</h1>
+      <div class="callout s-item">A <strong>30% flash deal</strong> doesn't go to everyone — it goes to the <span class="hl">~20 students</span> most likely to visit you for the first time. You set the cap; AI does the routing. And 99% share it onward.</div>
+      <img src="img-routing.png" class="s-item illus" alt="An offer routed to the ~20 students most likely to buy, not the whole crowd" style="width:100%;height:160px;object-fit:contain;display:block;margin:0 0 10px">
       <div id="offer-structures">
         <div class="row-select-item s-item" data-val="10pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">10% baseline</div></div>
         <div class="row-select-item s-item" data-val="15pct"><div class="row-check"><i class="ti ti-check row-check-icon"></i></div><div class="row-text">15% repeat-customer</div></div>
@@ -562,6 +609,7 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
     <div class="screen" id="screen-10">
       <div class="eyebrow s-item">Almost there</div>
       <h1 class="screen-title s-item">How fast can you move?</h1>
+      <img src="img-launch.png" class="s-item illus" alt="Merchant flipping the open sign as their shop launches" style="width:100%;height:150px;object-fit:contain;display:block;margin:4px 0 10px">
       <div class="sub-label s-item">Offers per month you can run?</div>
       <div class="speed-grid s-item" id="offer-capacity">
         <div class="speed-btn" data-val="1_5">1-5</div>
@@ -759,12 +807,12 @@ const formData = {
 
 // ═══ CATEGORY DATA ═══
 const categoryData = {
-  food:{ head:'Food and Beverage insight', stat:'48% of eating-out', body:'Gen Z drives Rs 30-35B/yr in the food market. They eat out 8x a month. And 99% share a good offer before they have finished the meal. (BCG 2024, SheerID 2024)' },
-  fashion:{ head:'Fashion insight', stat:'47% of fashion spend', body:'Gen Z drives Rs 45-50B/yr. They discover brands through peers, not ads. 90% are more likely to buy from a brand that gives them an exclusive offer. (BCG 2024, SheerID 2024)' },
-  beauty:{ head:'Beauty insight', stat:'44% of beauty market', body:'Gen Z drives Rs 7-9B/yr. Discovery is creator-led and peer-first. 68% of buying decisions start with a social signal, not a search. (BCG 2024, Nielsen IQ)' },
-  edu:{ head:'Education insight', stat:'100M Gen Z students', body:'99% of India\'s college students are Gen Z, and the number nearly doubles by 2035. A student who trusts your brand at 19 stays a customer for 30+ years. (SheerID 2024)' },
-  events:{ head:'Events insight', stat:'68% FOMO-driven purchases', body:'Gen Z purchases are triggered by FOMO and peer visibility, not price. 99% share exclusive offers with eligible friends. Events are how Gen Z builds identity. (Nielsen IQ, SheerID 2024)' },
-  other:{ head:'Market insight', stat:'Rs 930 billion', body:'India\'s 18-25 Gen Z cohort is ~100M people with Rs 3,000-Rs 15,000 monthly discretionary spend. 90% buy more from brands with exclusive offers; 99% share them onward. (RedSeer 2024)' }
+  food:{ head:'Food & Beverage insight', stat:'48%', statLabel:"of India's eating-out market is Gen Z — ₹30–35B a year", points:['They eat out 8× a month.','99% share a good offer with friends before they finish the meal.'], source:'BCG 2024 · SheerID 2024' },
+  fashion:{ head:'Fashion & Apparel insight', stat:'47%', statLabel:"of India's fashion market is Gen Z — ₹45–50B a year", points:['They discover brands through peers, not ads.','90% are more likely to buy from a brand that gives them an exclusive offer.','One campus advocate reaches 2,000 students.'], source:'BCG 2024 · SheerID 2024' },
+  beauty:{ head:'Beauty & Wellness insight', stat:'44%', statLabel:"of India's beauty market is Gen Z — ₹7–9B a year", points:['Discovery is creator-led and peer-first.','68% of buying decisions start with a social signal, not a search.'], source:'BCG 2024 · Nielsen IQ' },
+  edu:{ head:'Education insight', stat:'99%', statLabel:"of India's college students are Gen Z — and the number nearly doubles by 2035", points:['A student who trusts your brand at 19 stays a customer for 30+ years.'], source:'SheerID 2024' },
+  events:{ head:'Events insight', stat:'68%', statLabel:'of Gen Z purchases are triggered by FOMO and peer visibility — not price', points:['99% share exclusive offers with eligible friends.','Events are how Gen Z builds identity.'], source:'Nielsen IQ · SheerID 2024' },
+  other:{ head:'Market insight', stat:'~100M', statLabel:"India's 18–25 Gen Z cohort, each with ₹3,000–₹15,000 monthly spend", points:['90% buy more from brands with exclusive offers.','99% share them onward.'], source:'RedSeer 2024 · SheerID 2024' }
 };
 
 // ═══ AFFIRMATION DATA ═══
@@ -931,7 +979,7 @@ function updateNavButtons() {
   const nav = document.getElementById('bottom-nav');
   const dots = document.getElementById('dot-indicators');
   if(currentScreen===14){ nav.style.display='none'; dots.style.display='none'; return; }
-  nav.style.display='flex'; dots.style.display='flex';
+  nav.style.display='flex'; dots.style.display='none';
   bb.style.display = currentScreen>1 ? 'block':'none';
   const labels = {1:CONFIG.AB_VARIANT==='A'?'Start':CONFIG.AB_VARIANT==='B'?"See if we're a fit":'Join the research',2:'Next',3:'Next',4:'Next',5:'Next',6:'Next',7:'Next',8:'Next',9:'Next',10:'Next',11:'Next',12:'Next',13:'Submit'};
   bn.textContent = labels[currentScreen]||'Next';
@@ -1064,9 +1112,13 @@ function bindAll(){
       if(d){
         document.getElementById('reveal-head').textContent=d.head;
         document.getElementById('reveal-stat').textContent=d.stat;
-        document.getElementById('reveal-body').textContent=d.body;
+        document.getElementById('reveal-body').textContent=d.statLabel;
+        document.getElementById('reveal-points').innerHTML=(d.points||[]).map(p=>`<li>${p}</li>`).join('');
+        document.getElementById('reveal-source').textContent='Source: '+d.source;
         const r=document.getElementById('data-reveal');
         r.classList.remove('show'); void r.offsetHeight; r.classList.add('show');
+        const sc=document.getElementById('screen-2');
+        setTimeout(()=>sc.scrollTo({top:sc.scrollHeight,behavior:'smooth'}),120);
       }
     });
   });
