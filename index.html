@@ -23,9 +23,64 @@
 html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--white);-webkit-font-smoothing:antialiased;overflow:hidden}
 
 /* ── SHELL ── */
-#app{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh;background:var(--bg)}
+#app{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh;background:radial-gradient(900px 600px at 12% 8%,rgba(255,87,34,0.07),transparent 60%),radial-gradient(900px 700px at 92% 95%,rgba(255,87,34,0.05),transparent 55%),var(--bg)}
 #form-shell{position:relative;width:100%;max-width:440px;height:100vh;height:100dvh;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
 @media(min-width:480px){#form-shell{height:92vh;max-height:860px;border:2px solid var(--dark-border);border-radius:24px}}
+
+/* ── DESKTOP WEB-APP LAYOUT ── */
+#web-sidebar{display:none}
+@media(min-width:1000px){
+  html,body{overflow:hidden}
+  #app{align-items:stretch;justify-content:flex-start;gap:0;padding:0;height:100vh;background:var(--bg)}
+
+  /* SIDEBAR */
+  #web-sidebar{display:flex;flex-direction:column;width:300px;flex-shrink:0;height:100vh;padding:32px 24px;border-right:1.5px solid var(--dark-border);background:#FCFBFA}
+  .ws-top{margin-bottom:28px}
+  .ws-logo{height:26px;display:block}
+  .ws-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-top:11px}
+  #ws-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;flex:1}
+  .ws-step{display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:10px;color:var(--muted);font-size:13px;font-weight:500;transition:background 160ms,color 160ms}
+  .ws-num{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--dark-border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all 200ms;background:var(--dark-card)}
+  .ws-num .ti{display:none;font-size:13px;color:#fff}
+  .ws-step.done{color:var(--white);cursor:pointer}
+  .ws-step.done .ws-num{background:var(--orange);border-color:var(--orange)}
+  .ws-step.done .ws-num .ti{display:block}
+  .ws-step.done:hover{background:var(--orange-muted)}
+  .ws-step.active{background:var(--orange-muted);color:var(--white);font-weight:700}
+  .ws-step.active .ws-num{border-color:var(--orange);background:var(--orange)}
+  .ws-step.active .ws-num::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff}
+  .ws-foot{margin-top:20px}
+  .ws-progress-label{font-size:11px;color:var(--muted);margin-bottom:6px}
+  .ws-progress-label span{color:var(--orange);font-weight:700}
+  .ws-progress-track{height:4px;background:var(--dark-border);border-radius:2px;overflow:hidden}
+  .ws-progress-fill{height:100%;width:0;background:var(--orange);border-radius:2px;transition:width 500ms var(--ease-out)}
+  .ws-trust{font-size:11px;color:var(--muted);line-height:1.6;margin-top:16px}
+  .ws-trust strong{color:var(--white);font-weight:600}
+
+  /* MAIN COLUMN — de-phone the shell */
+  #form-shell{flex:1;width:auto;max-width:none;height:100vh;max-height:none;border:none;border-radius:0;background:transparent}
+  #form-shell::before,#form-shell::after{display:none}
+  #top-bar,#progress-wrap{display:none!important}
+  .screen{padding:56px 48px 132px;max-width:780px;margin:0 auto;width:100%}
+  #screen-14{max-width:none;padding:48px;align-items:center;justify-content:center;text-align:center}
+  #screen-14 .completion-icon-wrap,#screen-14 .completion-text-block{max-width:560px;width:100%}
+  .screen-title{font-size:30px}
+  #screen-1 .screen-title{font-size:34px}
+  .screen-body{font-size:15px}
+  .sub-label{font-size:14px}
+  .micro-copy{text-align:left}
+  .chip-label{font-size:14px}
+  .row-text{font-size:14px}
+  .pill{font-size:14px}
+  .form-input{font-size:15px;min-height:54px}
+  .hero-stat-num{font-size:26px}
+
+  /* BOTTOM CONTROLS → web style */
+  #bottom-nav{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--bg) 74%,transparent);padding:18px 48px 26px}
+  #nav-actions{width:100%;max-width:780px;margin:0 auto;justify-content:flex-end}
+  #btn-back{margin-right:auto}
+  #btn-next{width:auto;min-width:160px;padding:15px 40px}
+}
 
 /* ── TOP BAR ── */
 #top-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0;z-index:10}
@@ -347,6 +402,20 @@ textarea.form-input{resize:none;min-height:130px;line-height:1.6}
 </head>
 <body>
 <div id="app">
+
+<aside id="web-sidebar">
+  <div class="ws-top">
+    <img src="logo-full.svg" class="ws-logo" alt="ThinkUni">
+    <div class="ws-tag">Merchant Partnership</div>
+  </div>
+  <ol id="ws-steps"></ol>
+  <div class="ws-foot">
+    <div class="ws-progress-label"><span id="ws-pct">0%</span> complete</div>
+    <div class="ws-progress-track"><div class="ws-progress-fill" id="ws-progress-fill"></div></div>
+    <div class="ws-trust">First cohort gets <strong>3 months at zero platform fee</strong> · priority placement · capped slots.</div>
+  </div>
+</aside>
+
 <div id="form-shell">
 
   <div id="top-bar">
@@ -901,10 +970,53 @@ function init() {
   const ctas = { A:'Start', B:"See if we're a fit", C:'Join the research' };
   document.getElementById('btn-next').textContent = ctas[CONFIG.AB_VARIANT];
   buildDots();
+  buildSteps();
+  updateSteps();
   updateProgress();
   staggerIn(1);
   bindAll();
   document.getElementById('form-shell').classList.add('screen-1-active');
+}
+
+// ═══ DESKTOP STEP SIDEBAR ═══
+const WS_STEPS = [
+  { label:'Welcome',          start:1 },
+  { label:'Your business',    start:2 },
+  { label:'Gen Z fit',        start:3 },
+  { label:'Your customers',   start:4 },
+  { label:'Challenges',       start:5 },
+  { label:'The opportunity',  start:6 },
+  { label:'Your offers',      start:7 },   // screens 7–10
+  { label:'Your details',     start:11 },  // screens 11–13
+  { label:'Done',             start:14 },
+];
+function screenToStepIndex(n){
+  let idx = 0;
+  for(let i=0;i<WS_STEPS.length;i++){ if(n>=WS_STEPS[i].start) idx=i; }
+  return idx;
+}
+function buildSteps(){
+  const ol = document.getElementById('ws-steps');
+  if(!ol) return;
+  ol.innerHTML = WS_STEPS.map((s,i)=>`<li class="ws-step" data-screen="${s.start}"><span class="ws-num"><i class="ti ti-check"></i></span><span class="ws-step-label">${s.label}</span></li>`).join('');
+  ol.querySelectorAll('.ws-step').forEach(li=>{
+    li.addEventListener('click',()=>{
+      const target = parseInt(li.dataset.screen);
+      if(target < currentScreen){ showScreen(target,'back'); }
+    });
+  });
+}
+function updateSteps(){
+  const cur = screenToStepIndex(currentScreen);
+  document.querySelectorAll('#ws-steps .ws-step').forEach((li,i)=>{
+    li.classList.toggle('active', i===cur);
+    li.classList.toggle('done', i<cur);
+  });
+  const p = currentScreen<=13 ? Math.round(((currentScreen-1)/12)*100) : 100;
+  const fill = document.getElementById('ws-progress-fill');
+  const pct = document.getElementById('ws-pct');
+  if(fill) fill.style.width = p+'%';
+  if(pct) pct.textContent = p+'%';
 }
 
 // ═══ DOTS ═══
@@ -966,6 +1078,7 @@ function showScreen(n, dir) {
   updateProgress();
   updateDots();
   updateNavButtons();
+  updateSteps();
   staggerIn(n);
   if(n===14){
     setTimeout(() => document.getElementById('completion-icon-wrap').classList.add('animate'), 100);
