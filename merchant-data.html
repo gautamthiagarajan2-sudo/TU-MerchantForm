@@ -194,7 +194,7 @@ tr:last-child td{border-bottom:none}
         </select>
         <select class="fsel" id="f-cat" onchange="applyFilter()">
           <option value="">All categories</option>
-          <option value="food">Food &amp; Beverage</option>
+          <option value="food">Cafes &amp; Restaurants</option>
           <option value="fashion">Fashion &amp; Apparel</option>
           <option value="beauty">Beauty &amp; Wellness</option>
           <option value="edu">Education</option>
@@ -270,7 +270,7 @@ function barsHtml(items,cls='o'){
 }
 
 function renderCharts(){
-  const cL={food:'Food & Bev',fashion:'Fashion',beauty:'Beauty',edu:'Education',events:'Events',other:'Other'};
+  const cL={food:'Cafes & Rest.',fashion:'Fashion',beauty:'Beauty',edu:'Education',events:'Events',other:'Other'};
   const catC=cnt('category');
   const catI=Object.entries(cL).map(([k,l])=>[l,catC[k]||0]).filter(([,n])=>n);
   const coreC=cnt('core_answer');
@@ -358,9 +358,9 @@ const COLS=[
 ];
 
 const LL={
-  category:{food:'Food & Bev',fashion:'Fashion',beauty:'Beauty',edu:'Education',events:'Events',other:'Other'},
+  category:{food:'Cafes & Rest.',fashion:'Fashion',beauty:'Beauty',edu:'Education',events:'Events',other:'Other'},
   core_answer:{yes:"Yes, let's go",maybe:'Tell me more',not_now:'Not right now'},
-  offer_model:{A:'Volume',B:'Fixed Budget',C:'Both'},
+  offer_model:{A:'Offers/Month',B:'Fixed Budget',C:'Both',D:'Fixed 10%/mo'},
   offer_capacity:{performance_based:'Performance-based','1_5':'1–5','6_10':'6–10','11_20':'11–20','20plus':'20+'},
   launch_speed:{this_week:'This week',two_weeks:'Within 2 weeks',one_month:'Within a month',need_approval:'Needs approval'},
   genz_reach:{yes_consistently:'Yes, consistently',sometimes:'Sometimes',tried:"Tried, didn't work",not_yet:'Not yet',no:'No'},
